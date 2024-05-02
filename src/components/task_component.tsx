@@ -1,32 +1,25 @@
 import React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
 import { listTasks } from '../api/data';
 import { useState } from 'react';
 import { Label, PriorityOfTask, Task } from '../model';
+import TableTasks from './tableTask';
+import ModalComponent from './modal';
 
 const TaskComponent: React.FC = () => {
     const [listData, setListData] = useState<Task[]>([...listTasks]);
+    const [showModal, setShowModal] = useState(false);
 
-    const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'title', headerName: 'Titre', width: 200 },
-        { field: 'description', headerName: 'Titre', width: 200 },
-        { field: 'startDate', headerName: 'Titre', width: 200 },
-    ];
-    const addTask = () => {
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
 
-        const newTask: Task = {
-            id: 1,
-            title: "Tâche 1",
-            assignee: { id: 1, name: "kevin kefra", email: "kefra@example.com", phone: "+1234567890" },
-            startDate: new Date(2024, 4, 1),
-            endDate: new Date(2024, 4, 30),
-            priority: PriorityOfTask.MEDIUM,
-            labels: [Label.HTML],
-            description: "Description de la tâche 1"
-        };
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
-        setListData(prevTasks => [...prevTasks, newTask])
+    const addTask = (newTask: Task) => {
+        setListData(prevTasks => [...prevTasks, newTask]);
+        handleCloseModal();
     }
 
     const handleDeleteTask = (taskId: number) => {
@@ -34,9 +27,13 @@ const TaskComponent: React.FC = () => {
     };
     return (
         <div>
-            <button onClick={() => addTask()}>ajouter</button>
+            <button onClick={handleOpenModal}>Ouvrir le modal</button>
+
+            {showModal && (
+                <ModalComponent isOpen={showModal} onClose={handleCloseModal} onAddTask={addTask}></ModalComponent>
+            )}
             <button onClick={() => handleDeleteTask(1)}>delete</button>
-            <DataGrid rows={listData} columns={columns} />
+            {TableTasks(listData)}
         </div>
     );
 };
