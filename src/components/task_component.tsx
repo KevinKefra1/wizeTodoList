@@ -1,13 +1,14 @@
 import React from 'react';
 import { listTasks } from '../api/data';
 import { useState } from 'react';
-import { Label, PriorityOfTask, Task } from '../model';
+import { Task } from '../model';
 import TableTasks from './tableTask';
 import ModalComponent from './modal';
 
 const TaskComponent: React.FC = () => {
     const [listData, setListData] = useState<Task[]>([...listTasks]);
     const [showModal, setShowModal] = useState(false);
+    const [task, setSelectedTask] = useState<Task>();
 
     const handleOpenModal = () => {
         setShowModal(true);
@@ -18,22 +19,40 @@ const TaskComponent: React.FC = () => {
     };
 
     const addTask = (newTask: Task) => {
-        setListData(prevTasks => [...prevTasks, newTask]);
+
+        const existingTaskIndex = listData.findIndex((task) => task.id === newTask.id);
+
+        if (existingTaskIndex !== -1) {
+            const updatedTasks = [...listData];
+            updatedTasks[existingTaskIndex] = newTask;
+            setListData(updatedTasks);
+        } else {
+            setListData(prevTasks => [...prevTasks, newTask]);
+        }
         handleCloseModal();
+
+    }
+
+    const openTask = (task: Task) => {
+        handleCloseModal();
+        setSelectedTask(task);
+        handleOpenModal();
     }
 
     const handleDeleteTask = (taskId: number) => {
         setListData(prevTasks => prevTasks.filter(task => task.id !== taskId));
     };
+
+
     return (
         <div>
             <button onClick={handleOpenModal}>Ouvrir le modal</button>
 
             {showModal && (
-                <ModalComponent isOpen={showModal} onClose={handleCloseModal} onAddTask={addTask}></ModalComponent>
+                <ModalComponent isOpen={showModal} onClose={handleCloseModal} onAddTask={addTask} task={task}></ModalComponent>
             )}
             <button onClick={() => handleDeleteTask(1)}>delete</button>
-            {TableTasks(listData)}
+            {TableTasks(listData, openTask)}
         </div>
     );
 };

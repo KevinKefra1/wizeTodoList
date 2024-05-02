@@ -9,7 +9,14 @@ const columns: GridColDef[] = [
     { field: 'startDate', headerName: 'Titre', width: 200 },
 ];
 
-export default function TableTasks(tasks: Task[]) {
+export default function TableTasks(tasks: Task[], onClick: Function) {
+    const handleRowClick = (event: any) => {
+        console.log(event)
+        //   setSelectedRowId(event.rowId);
+        //   setOpenEditModal(true);
+        console.log(event)
+        onClick(event.row);
+    };
     return (
         <div >
             <DataGrid
@@ -22,6 +29,7 @@ export default function TableTasks(tasks: Task[]) {
                 }}
                 pageSizeOptions={[5, 10]}
                 checkboxSelection
+                onRowClick={handleRowClick}
             />
         </div>
     );

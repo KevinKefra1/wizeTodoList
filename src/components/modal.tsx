@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { listAssignes } from '../api/data';
-import {  Label, PriorityOfTask, Task } from '../model';
+import { Label, PriorityOfTask, Task } from '../model';
 
 
 
@@ -8,12 +8,25 @@ interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
     onAddTask: (task: Task) => void;
+    task?: Task;
 }
 
-const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask }) => {
-    const [formData, setFormData] = useState({ title: "", description: "", startDate: new Date(), endDate: new Date(), labels: [Label.CSS], assignee: listAssignes[0], priority: PriorityOfTask.HIGH, });
+
+
+const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, task }) => {
+    const [formData, setFormData] = useState({ title: task?.title ?? "", description: task?.description ?? "", startDate: task?.startDate ?? new Date(), endDate: task?.endDate ?? undefined, labels: task?.labels ?? [Label.CSS], assignee: task?.assignee ?? listAssignes[0], priority: task?.priority ?? PriorityOfTask.HIGH, });
     const [isValidTitle, setIsValidTitle] = useState(false);
     const { title, description, startDate, labels, priority, assignee } = formData;
+
+    const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
+
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedOptions = Array.from(e.target.selectedOptions).map((option) => option.value);
+        console.log(selectedOptions);
+        setSelectedLabels(selectedOptions);
+    };
+
+
 
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
@@ -29,10 +42,6 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask }) =>
         setFormData({ ...formData, priority });
     };
 
-    const handleLabelChange = (event: any) => {
-
-        console.log(event.target.value);
-    };
 
     const handleAssigneChange = (e: any) => {
         const assigneeId = Number(e.target.value);
@@ -50,7 +59,7 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask }) =>
         }
         else {
             const newTask: Task = {
-                id: Math.floor(Math.random() * 1000) + 1,
+                id: task?.id ?? Math.floor(Math.random() * 1000) + 1,
                 title: formData.title,
                 assignee: assignee,
                 startDate: startDate,
@@ -101,10 +110,10 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask }) =>
                         </option>
                     ))}
                 </select>
-                <select multiple value={labels[0]} onChange={handleLabelChange}>
-                    {Object.values(Label).map((label) => (
-                        <option key={label} value={label}>
-                            {label}
+                <select value={selectedLabels} onChange={handleChange}>
+                    {Object.entries(Label).map(([key, value]) => (
+                        <option key={value} value={value}>
+                            {key}
                         </option>
                     ))}
                 </select>
