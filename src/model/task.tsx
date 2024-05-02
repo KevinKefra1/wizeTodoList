@@ -5,7 +5,7 @@ export default interface Task {
     title: string;
     assignee: Assignee;
     startDate: Date;
-    endDate: Date;
+    endDate?: Date;
     priority: PriorityOfTask;
     labels: Label[];
     description: string;
