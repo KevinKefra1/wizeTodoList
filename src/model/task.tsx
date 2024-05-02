@@ -1,4 +1,4 @@
-import { Assignee } from ".";
+import { Assignee, Label, PriorityOfTask } from ".";
 
 export default interface Task {
     id: number;
@@ -11,19 +11,7 @@ export default interface Task {
     description: string;
 }
 
-enum PriorityOfTask {
-    LOW,
-    MEDIUM,
-    HIGH
-}
 
-enum Label {
-    HTML,
-    CSS,
-    PYTHON,
-    REACT,
-    NEXT
-}
 
 
 
