@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import TaskComponent from './components/task_component';
+import UserComponent from './components/user_component';
 
 function App() {
   const [page, setPage] = useState(0)
@@ -25,7 +26,7 @@ function App() {
       </div>
       <div className='h-screen w-full bg-gray-100'>
         {page === 0 ? <TaskComponent /> : (
-          <div>User</div>
+          <UserComponent></UserComponent>
         )}
       </div>
     </div>
