@@ -67,6 +67,7 @@ const TaskComponent: React.FC = () => {
 
     const handleCloseModal = () => {
         setShowModal(false);
+        setSelectedTask(undefined);
     };
 
     const addTask = (newTask: Task) => {
@@ -85,7 +86,7 @@ const TaskComponent: React.FC = () => {
         handleCloseModal();
     };
 
-    
+
 
 
 
@@ -101,14 +102,16 @@ const TaskComponent: React.FC = () => {
 
     };
 
-    const handleDeleteTask = (taskId: number) => {
-        setListData((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    const handleDeleteTask = (oldTask: Task) => {
+        setListData((prevTasks) => prevTasks.filter((task) => task.id !== oldTask.id));
+        setShowModal(false)
     };
 
     const handleSearch = () => { };
 
 
     useEffect(() => {
+
         const data = filterTask(menuSlected.name, listData);
         setFilterTask(data);
     }, [listData, menuSlected])
@@ -137,6 +140,7 @@ const TaskComponent: React.FC = () => {
                         onClose={handleCloseModal}
                         onAddTask={addTask}
                         task={selectedTask}
+                        onDeleteTask={handleDeleteTask}
                     ></ModalComponent>
                 )}
                 {/* <button onClick={() => handleDeleteTask(1)}>delete</button> */}

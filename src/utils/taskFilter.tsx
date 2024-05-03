@@ -6,11 +6,14 @@ export const filterTask = (filter: string, tasksData: Task[]): Task[] => {
             return tasksData;
 
         case "Completed":
-            return tasksData.filter((task) => task.endDate !== undefined || task.endDate !== null);
+
+            return tasksData.filter((task) => {
+                return task?.endDate !== undefined ?? false;
+            });
 
         case "Today":
-            const today = new Date();
-            return tasksData.filter((task) => task.startDate.getTime() === today.getTime());
+            const today = new Date().setHours(0, 0, 0, 0);
+            return tasksData.filter((task) => task.startDate.setHours(0, 0, 0, 0) === today);
 
         case "Priority":
             return tasksData.filter((task) => task.priority.toString() === PriorityOfTask.HIGH.toString());

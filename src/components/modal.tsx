@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { listAssignes } from '../api/data';
 import { Label, PriorityOfTask, Task } from '../model';
 
@@ -8,25 +8,39 @@ interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
     onAddTask: (task: Task) => void;
+    onDeleteTask: (task: Task) => void;
     task?: Task;
 }
 
 
 
-const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, task }) => {
+const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, onDeleteTask, task }) => {
     const [formData, setFormData] = useState({ title: task?.title ?? "", description: task?.description ?? "", startDate: task?.startDate ?? new Date(), endDate: task?.endDate ?? undefined, labels: task?.labels ?? [Label.CSS], assignee: task?.assignee ?? listAssignes[0], priority: task?.priority ?? PriorityOfTask.HIGH, });
     const [isValidTitle, setIsValidTitle] = useState(true);
+    const [confirmed, setIsConfirmed] = useState(task?.endDate !== undefined);
+
     const { title, description, startDate, labels, priority, assignee } = formData;
 
-    const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
+    const [selectedLabels, setSelectedLabels] = useState<string[]>(labels);
+    const [endDateC, setEndDate] = useState<Date | undefined>(task?.endDate ?? undefined);
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedOptions = Array.from(e.target.selectedOptions).map((option) => option.value);
-        console.log(selectedOptions);
+
         setSelectedLabels(selectedOptions);
     };
 
+    const convertListStringToListLabel = (stringList: string[]): Label[] => {
+        return stringList.map((str) => {
+            const validLabels = new Set<Label>([Label.HTML, Label.CSS, Label.PYTHON, Label.REACT, Label.NEXT]);
 
+            if (validLabels.has(str as Label)) {
+                return str as Label;
+            } else {
+                return undefined;
+            }
+        }).filter((label) => label !== undefined) as Label[];
+    };
 
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
@@ -46,7 +60,6 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, task
     const handleAssigneChange = (e: any) => {
         const assigneeId = Number(e.target.value);
         const assignee = listAssignes.find(assignee => assignee.id === assigneeId);
-        console.log(assignee?.email);
         setFormData({ ...formData, assignee: assignee ?? listAssignes[1] });
     };
 
@@ -59,21 +72,29 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, task
         }
         else {
             const newTask: Task = {
-                id: task?.id ?? Math.floor(Math.random() * 1000000) + 1,
+                id: task?.id ?? Math.floor(Math.random() * 10000000) + 1,
                 title: formData.title,
                 assignee: assignee,
                 startDate: startDate,
-                endDate: task?.endDate ?? undefined,
+                endDate: endDateC,
                 priority: priority,
-                labels: [Label.HTML],
+                labels: convertListStringToListLabel(selectedLabels),
                 description: formData.description
             };
+            console.log(labels)
             onAddTask(newTask);
         }
     };
 
 
-    ;
+    const handleConfirmed = (event: any) => {
+        setIsConfirmed(event.target.checked);
+        if (event.target.checked) {
+            setEndDate(new Date());
+        } else {
+            setEndDate(undefined)
+        }
+    };
 
 
     if (!isOpen) {
@@ -120,20 +141,20 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, task
                                 </select>
 
                                 <select
-                                    className='mt-1 p-4 bg-white border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                                    className='mt-1 p-4 bg-white border  text-gray-900 text-md rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 '
                                     value={assignee.id ?? ''}
                                     onChange={handleAssigneChange}
                                 >
-                                    <option value="">Sélectionner un assigné</option>
+                                    <option value="">Sélectionner un assigné </option>
                                     {listAssignes.map(assignee => (
                                         <option key={assignee.id} value={assignee.id}>
-                                            {assignee.name}
+                                            {assignee.name.toUpperCase()}
                                         </option>
                                     ))}
                                 </select>
 
 
-                                <select value={selectedLabels} onChange={handleChange} className='mt-1 p-4 bg-white border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                <select multiple value={selectedLabels} onChange={handleChange} className='mt-1 p-4 bg-white border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
                                     {Object.entries(Label).map(([key, value]) => (
                                         <option key={value} value={value}>
                                             {key}
@@ -153,12 +174,13 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, task
 
 
                             <label className="flex items-center">
-                                <span className="ml-2 text-gray-700"> Completed</span>
-                                <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-500" />
+                                <span className="mr-2 text-gray-700"> Completed</span>
+                                <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-500" checked={confirmed} onChange={handleConfirmed} />
                             </label>
-                            <div className='w-full flex flex-row mb-8'>
-                                <div className='w-full'></div>
-                                <button type='submit' className='w-24 ml-8 bg-white border border-blue-500 px-4 py-2 rounded rounded-lg hover:bg-blue-500 hover:text-white  '>Ajouter</button>
+                            <div className='w-full flex flex-row mb-8 items-end justify-between'>
+                                {task?.id !== undefined ? <button type='button' onClick={e => onDeleteTask(task)} className='w-24 bg-white border text-red-500 border-red-500 px-4 py-2 rounded rounded-lg hover:bg-red-500 hover:text-white  '>Delete</button>
+                                    : (<div className='w-full'></div>)}
+                                <button type='submit' className='w-24  bg-white border text-blue-500 border-blue-500 px-4 py-2 rounded rounded-lg hover:bg-blue-500 hover:text-white  '>Save</button>
 
                             </div>
                         </form>
