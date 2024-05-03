@@ -71,6 +71,7 @@ const TaskComponent: React.FC = () => {
     };
 
     const addTask = (newTask: Task) => {
+        console.log(newTask.description);
         const existingTaskIndex = listData.findIndex(
             (task) => task.id === newTask.id
         );
