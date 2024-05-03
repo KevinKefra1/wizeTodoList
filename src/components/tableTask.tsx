@@ -10,22 +10,8 @@ const columns: GridColDef[] = [
 ];
 
 
-
-
-
-const CustomToolbar = () => {
-    <div className='p-6'>
-        <div> ... </div>
-
-    </div>
-}
-
 export default function TableTasks(tasks: Task[], onClick: Function) {
     const handleRowClick = (event: any) => {
-        console.log(event)
-        //   setSelectedRowId(event.rowId);
-        //   setOpenEditModal(true);
-        console.log(event)
         onClick(event.row);
     };
     return (
