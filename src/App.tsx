@@ -6,8 +6,10 @@ import TaskComponent from './components/task_component';
 function App() {
   return (
     <div className="App">
-      
-      <TaskComponent></TaskComponent>
+
+      <div className='h-screen w-full bg-gray-100'>
+        <TaskComponent></TaskComponent>
+      </div>
     </div>
   );
 }

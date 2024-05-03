@@ -9,6 +9,17 @@ const columns: GridColDef[] = [
     { field: 'startDate', headerName: 'Titre', width: 200 },
 ];
 
+
+
+
+
+const CustomToolbar = () => {
+    <div className='p-6'>
+        <div> ... </div>
+
+    </div>
+}
+
 export default function TableTasks(tasks: Task[], onClick: Function) {
     const handleRowClick = (event: any) => {
         console.log(event)
@@ -29,6 +40,7 @@ export default function TableTasks(tasks: Task[], onClick: Function) {
                 }}
                 pageSizeOptions={[5, 10]}
                 checkboxSelection
+                // componentsProps={{ Toolbar: CustomToolbar }}
                 onRowClick={handleRowClick}
             />
         </div>

@@ -45,14 +45,19 @@ const TaskComponent: React.FC = () => {
 
 
     return (
-        <div>
-            <button onClick={handleOpenModal}>Ouvrir le modal</button>
-
-            {showModal && (
-                <ModalComponent isOpen={showModal} onClose={handleCloseModal} onAddTask={addTask} task={task}></ModalComponent>
-            )}
-            <button onClick={() => handleDeleteTask(1)}>delete</button>
-            {TableTasks(listData, openTask)}
+        <div className='flex w-full h-full flex-row gap-8'>
+            <div className='w-1/4 bg-white h-full'>
+                <div className="mt-6 mx-4">
+                    <button type="submit" onClick={handleOpenModal} className="w-full p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600">Add Task</button>
+                </div>
+            </div>
+            <div className='w-full bg-white h-full py-16 px-8'>
+                {showModal && (
+                    <ModalComponent isOpen={showModal} onClose={handleCloseModal} onAddTask={addTask} task={task}></ModalComponent>
+                )}
+                <button onClick={() => handleDeleteTask(1)}>delete</button>
+                {TableTasks(listData, openTask)}
+            </div>
         </div>
     );
 };
