@@ -81,13 +81,13 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, task
     }
 
     return (
-        <div className=' overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center  md:inset-0 h-[calc(100%-1rem)] max-h-full' style={{
+        <div className=' overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center  md:inset-0 h-full max-h-full' style={{
             background: "rgba(0, 0, 0, 0.5)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
         }}>
-            <div className="relative   w-full max-w-3xl max-h-full " >
+            <div className="relative  w-80  ld:w-full max-w-80 lg:max-w-3xl max-h-full " >
                 <div className="relative rounded-lg shadow dark:bg-gray-700 bg-white ">
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <h3 className="text-xl font-semibold text-gray-600 dark:text-white">
@@ -100,7 +100,7 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, task
                             <span className="sr-only">Close modal</span>
                         </button>
                     </div>
-                    <div className='px-8 mt-4'>
+                    <div className=' px-4 md:px-8 mt-4'>
                         <form onSubmit={handleAddTask} className="flex flex-col gap-8">
                             <div className="mt-4 flex flex-col items-start ">
                                 <input type="text" name="title" placeholder='Task Title' className="mt-1 p-4 w-full border rounded-md" required value={title}
@@ -108,7 +108,7 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, task
                                 <span className={`${isValidTitle ? "hidden" : ""} mt-2 `}>Title is not valid</span>
                             </div>
 
-                            <div className='w-full  grid grid-cols-4 gap-4'>
+                            <div className='w-full  grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4 gap-4'>
                                 <select
                                     className="mt-1 p-4 bg-white border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     value={priority}
