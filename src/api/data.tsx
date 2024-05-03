@@ -1,4 +1,12 @@
-import { Assignee, Label, PriorityOfTask, Task } from "../model";
+import { Assignee, Label, LabelMenu, Menu, PriorityOfTask, Task } from "../model";
+import {
+    faCalendarMinus,
+    faClock,
+    faDotCircle,
+    faRadiation,
+    faUserFriends,
+} from "@fortawesome/free-solid-svg-icons";
+
 
 
 
@@ -32,3 +40,46 @@ export const listTasks: Task[] = [{
     labels: [Label.NEXT],
     description: "Description de la tâche 1"
 },]
+
+
+export const listMenuLabel: LabelMenu[] = [
+    {
+        color: "red",
+        name: Label.HTML.toString()
+    }, {
+        color: "yellow",
+        name: Label.CSS.toString()
+    }, {
+        color: "blue",
+        name: Label.REACT.toString()
+    }, {
+        color: "Black",
+        name: Label.NEXT.toString()
+    }, {
+        color: "green",
+        name: Label.PYTHON.toString()
+    },
+]
+
+export const listMenu: Menu[] = [
+    {
+        id: 1,
+        name: "All",
+        icon: faUserFriends,
+    },
+    {
+        id: 2,
+        name: "Priority",
+        icon: faRadiation,
+    },
+    {
+        id: 3,
+        name: "Today",
+        icon: faCalendarMinus,
+    },
+    {
+        id: 4,
+        name: "Completed",
+        icon: faClock,
+    },
+];

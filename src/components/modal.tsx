@@ -87,7 +87,7 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, task
             alignItems: "center",
             justifyContent: "center",
         }}>
-            <div className="relative  w-80  ld:w-full max-w-80 lg:max-w-3xl max-h-full " >
+            <div className="relative  w-80 max-w-80  lg:w-full  lg:max-w-3xl max-h-full " >
                 <div className="relative rounded-lg shadow dark:bg-gray-700 bg-white ">
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <h3 className="text-xl font-semibold text-gray-600 dark:text-white">
@@ -103,7 +103,7 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, task
                     <div className=' px-4 md:px-8 mt-4'>
                         <form onSubmit={handleAddTask} className="flex flex-col gap-8">
                             <div className="mt-4 flex flex-col items-start ">
-                                <input type="text" name="title" placeholder='Task Title' className="mt-1 p-4 w-full border rounded-md" required value={title}
+                                <input type="text" name="title" placeholder='Task Title' className={`mt-1 p-4 w-full border rounded-md ${!isValidTitle && "border-red-500"}`} required value={title}
                                     onChange={handleInputChange} />
                                 <span className={`${isValidTitle ? "hidden" : ""} mt-2 `}>Title is not valid</span>
                             </div>
@@ -152,7 +152,10 @@ const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask, task
                                 onChange={handleInputChange} />
 
 
-
+                            <label className="flex items-center">
+                                <span className="ml-2 text-gray-700"> Completed</span>
+                                <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-500" />
+                            </label>
                             <div className='w-full flex flex-row mb-8'>
                                 <div className='w-full'></div>
                                 <button type='submit' className='w-24 ml-8 bg-white border border-blue-500 px-4 py-2 rounded rounded-lg hover:bg-blue-500 hover:text-white  '>Ajouter</button>
