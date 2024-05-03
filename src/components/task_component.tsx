@@ -3,7 +3,7 @@ import { listMenu, listMenuLabel, listTasks } from "../api/data";
 import { useState } from "react";
 import { Label, LabelMenu, PriorityOfTask, Task, Menu } from "../model";
 import TableTasks from "./tableTask";
-import ModalComponent from "./modal";
+import ModalComponent from "./modalComponent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCalendarMinus,
@@ -13,6 +13,7 @@ import {
     faUserFriends,
 } from "@fortawesome/free-solid-svg-icons";
 import { filterTask } from "../utils";
+import { FormTaskComponent } from "./";
 
 
 
@@ -139,9 +140,8 @@ const TaskComponent: React.FC = () => {
                     <ModalComponent
                         isOpen={showModal}
                         onClose={handleCloseModal}
-                        onAddTask={addTask}
-                        task={selectedTask}
-                        onDeleteTask={handleDeleteTask}
+                        title={"Add new task"}
+                        children={<FormTaskComponent onAddTask={addTask} onDeleteTask={handleDeleteTask} task={selectedTask} />}
                     ></ModalComponent>
                 )}
                 {/* <button onClick={() => handleDeleteTask(1)}>delete</button> */}
