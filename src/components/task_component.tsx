@@ -56,7 +56,6 @@ const TaskComponent: React.FC = () => {
     const [filterTasks, setFilterTask] = useState<Task[]>();
 
     const [showModal, setShowModal] = useState(false);
-    const [isSearchOrFilter, setSearchOrFilter] = useState(false);
     const [selectedTask, setSelectedTask] = useState<Task>();
     const [menuSlected, setSelectedMenu] = useState<Menu>(listMenu[0]);
 

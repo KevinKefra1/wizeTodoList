@@ -11,7 +11,7 @@ api.onGet("/users").reply(200, {
 });
 
 api.onGet("/tasks").reply(200, {
-  tasks: tasks,
+  tasks: [...tasks],
 });
 
 api.onPost("/tasks").reply((config: any) => {

@@ -1,5 +1,4 @@
-import Assignee from "./assigne";
-import { Task } from "./task";
+import { Assignee, Task } from "./";
 
 export interface ModalProps {
     isOpen: boolean;
