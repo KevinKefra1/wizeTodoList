@@ -19,4 +19,5 @@ export interface LoadTaskState {
     loading: boolean;
     error: string | null;
     addTask: (task: Task) => void;
+    deleteTask: (task: Task) => void;
 }

@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
 import { listMenu, listMenuLabel, listTasks } from "../api/data";
 import { useState } from "react";
-import { Label, LabelMenu, PriorityOfTask, Task, Menu } from "../model";
+import { Task, Menu } from "../model";
 import TableTasks from "./tableTask";
 import ModalComponent from "./modalComponent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faCalendarMinus,
-    faClock,
     faDotCircle,
-    faRadiation,
-    faUserFriends,
 } from "@fortawesome/free-solid-svg-icons";
 import { filterTask } from "../utils";
 import { FormTaskComponent } from "./";
@@ -55,7 +51,7 @@ function MenuComponent(onClick: Function, idMenuSelected: number) {
     );
 }
 const TaskComponent: React.FC = () => {
-    const { tasks, loading, error, addTask } = useTasks();
+    const { tasks, loading, error, addTask, deleteTask } = useTasks();
 
     const [filterTasks, setFilterTask] = useState<Task[]>();
 
@@ -91,6 +87,8 @@ const TaskComponent: React.FC = () => {
 
     const handleDeleteTask = (oldTask: Task) => {
         // setListData((prevTasks) => prevTasks.filter((task) => task.id !== oldTask.id));
+        setSelectedTask(undefined)
+        deleteTask(oldTask)
         setShowModal(false)
     };
 

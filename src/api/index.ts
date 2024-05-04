@@ -28,17 +28,12 @@ api.onPost("/tasks").reply((config: any) => {
   return [200, tasks];
 });
 
+api.onDelete(/\/tasks\/(.+)/).reply((config:any) => {
+    const taskId = parseInt(config.url.split('/').pop()!);
+    tasks = tasks.filter((task) => task.id !== taskId);
+    
+    return [200,tasks];
+  });
 
-
-api.onGet("/tasks/:id").reply((config: any) => {
-  const taskId = parseInt(config.url?.match(/\/tasks\/(.+)/)?.[1] || "", 10);
-  const task = tasks.find((task) => task.id === taskId);
-
-  if (task) {
-    return [200, task];
-  }
-
-  return [404, { message: "Tâche non trouvée" }];
-});
 
 export default api;
