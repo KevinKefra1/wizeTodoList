@@ -11,7 +11,10 @@ import {
 
 
 export const listAssignes: Assignee[] = [
-    { id: 1, name: "kevin kefra", email: "kefra@example.com", phone: "+23765998555x" }, { id: 2, name: " kefra", email: "kefra2@example.com", phone: "+237655444444" }, { id: 3, name: "kevin_kefra", email: "kefra3@example.com", phone: "+237666555440" }];
+    { id: 1, name: "kevin kefra", email: "kefra@example.com", phone: "+23765998555x" },
+    { id: 2, name: " kefra", email: "kefra2@example.com", phone: "+237655444444" },
+    { id: 3, name: "kevin_kefra", email: "kefra3@example.com", phone: "+237666555440" }
+];
 
 export const listTasks: Task[] = [{
     id: 1,

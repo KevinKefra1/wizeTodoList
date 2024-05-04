@@ -8,6 +8,7 @@ import {
     faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import TableAssignee from "./tableUser";
+import FormUserComponent from "./form/formUserComponent";
 
 
 
@@ -32,18 +33,18 @@ const UserComponent: React.FC = () => {
 
     const addUser = (newUser: Assignee) => {
         // console.log(newUser.name);
-        // const existingUserIndex = listData.findIndex(
-        //     (user) => user.name === newUser.name
-        // );
+        const existingUserIndex = listData.findIndex(
+            (user) => user.name === newUser.name
+        );
 
-        // if (existingUserIndex !== -1) {
-        //     const updatedTasks = [...listData];
-        //     updatedUsers[existingTaskIndex] = newTask;
-        //     setListData(updatedTasks);
-        //     setSelectedTask(undefined);
-        // } else {
-        //     setListData((prevTasks) => [...prevTasks, newTask]);
-        // }
+        if (existingUserIndex !== -1) {
+            const updatedUsers = [...listData];
+            updatedUsers[existingUserIndex] = newUser;
+            setListData(updatedUsers);
+            setSelectedUser(undefined);
+        } else {
+            setListData((prevUsers) => [...prevUsers, newUser]);
+        }
         handleCloseModal();
     };
 
@@ -92,7 +93,7 @@ const UserComponent: React.FC = () => {
                         isOpen={showModal}
                         onClose={handleCloseModal}
                         title={"Add new User"}
-                        children={<div />}
+                        children={<FormUserComponent onAddUser={addUser} onDeleteUser={handleDeleteUser} user={selectedUser} />}
                     ></ModalComponent>
                 )}
                 {/* <button onClick={() => handleDeleteTask(1)}>delete</button> */}
