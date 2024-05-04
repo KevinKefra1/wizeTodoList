@@ -9,13 +9,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import TableAssignee from "./tableUser";
 import FormUserComponent from "./form/formUserComponent";
+import { useUsers } from "../hooks/useUsers";
 
 
 
 
 
 const UserComponent: React.FC = () => {
-    const [listData, setListData] = useState<Assignee[]>([...listAssignes]);
+    const { users, loading, error, addUser, deleteUser } = useUsers();
+
+    // const [listData, setListData] = useState<Assignee[]>([...listAssignes]);
     const [filterUsers, setFilterUser] = useState<Assignee[]>();
 
     const [showModal, setShowModal] = useState(false);
@@ -31,20 +34,22 @@ const UserComponent: React.FC = () => {
         setSelectedUser(undefined);
     };
 
-    const addUser = (newUser: Assignee) => {
+    const onAddUser = (newUser: Assignee) => {
         // console.log(newUser.name);
-        const existingUserIndex = listData.findIndex(
-            (user) => user.name === newUser.name
-        );
+        // const existingUserIndex = listData.findIndex(
+        //     (user) => user.name === newUser.name
+        // );
 
-        if (existingUserIndex !== -1) {
-            const updatedUsers = [...listData];
-            updatedUsers[existingUserIndex] = newUser;
-            setListData(updatedUsers);
-            setSelectedUser(undefined);
-        } else {
-            setListData((prevUsers) => [...prevUsers, newUser]);
-        }
+        // if (existingUserIndex !== -1) {
+        //     const updatedUsers = [...listData];
+        //     updatedUsers[existingUserIndex] = newUser;
+        //     setListData(updatedUsers);
+        //     setSelectedUser(undefined);
+        // } else {
+        //     setListData((prevUsers) => [...prevUsers, newUser]);
+        // }
+        setSelectedUser(undefined);
+        addUser(newUser)
         handleCloseModal();
     };
 
@@ -60,7 +65,9 @@ const UserComponent: React.FC = () => {
 
 
     const handleDeleteUser = (oldUser: Assignee) => {
-        setListData((prevTasks) => prevTasks.filter((task) => task.name !== oldUser.name));
+        // setListData((prevTasks) => prevTasks.filter((task) => task.name !== oldUser.name));
+        setSelectedUser(undefined)
+        deleteUser(oldUser)
         setShowModal(false)
     };
 
@@ -93,12 +100,12 @@ const UserComponent: React.FC = () => {
                         isOpen={showModal}
                         onClose={handleCloseModal}
                         title={"Add new User"}
-                        children={<FormUserComponent onAddUser={addUser} onDeleteUser={handleDeleteUser} user={selectedUser} />}
+                        children={<FormUserComponent onAddUser={onAddUser} onDeleteUser={handleDeleteUser} user={selectedUser} />}
                     ></ModalComponent>
                 )}
                 {/* <button onClick={() => handleDeleteTask(1)}>delete</button> */}
 
-                {TableAssignee(filterUsers ?? listData, openUser)}
+                {TableAssignee(filterUsers ?? users, openUser)}
             </div>
         </div>
     );
