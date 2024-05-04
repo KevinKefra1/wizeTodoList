@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDotCircle, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useEffect } from "react";
+import { exportUsersToPDF } from "../utils";
 
 const columns: GridColDef[] = [
     { field: "name", headerName: "Name", width: 200 },
@@ -93,6 +94,22 @@ export default function TableAssignee(users: Assignee[], onClick: Function) {
 
     return (
         <div className="h-full flex flex-col gap-4">
+            <div className="flex gap-4 h-8 items-end justify-end">
+                <button
+                    type="button"
+                    onClick={e => exportUsersToPDF(filteredUsers)}
+                    className="w-36   p-3 py-1 border border-blue-500 text-blue-500 rounded-xl hover:bg-blue-500 hover:text-white"
+                >
+                    Export to PDF
+                </button>
+
+                <button
+                    type="button"
+                    className=" w-36  p-3 py-1 border border-blue-500 text-blue-500 rounded-xl hover:bg-blue-500 hover:text-white"
+                >
+                    Export to Excel
+                </button>
+            </div>
             <div className="w-full h-16 py-2  px-8 flex flex-row">
 
                 <div className="flex flex-row">

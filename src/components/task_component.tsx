@@ -121,7 +121,7 @@ const TaskComponent: React.FC = () => {
                 </div>
                 <div>{LabelMenuComponent()}</div>
             </div>
-            <div className="w-full bg-white h-full py-16 px-8">
+            <div className="w-full bg-white h-full py-8 px-8">
                 {showModal && (
                     <ModalComponent
                         isOpen={showModal}
