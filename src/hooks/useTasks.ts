@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { LoadTaskState, Task } from '../model';
+import { Assignee, LoadTaskState, Task } from '../model';
 import axios from 'axios';
 
 export const useTasks = (): LoadTaskState => {
     const [tasks, setTasks] = useState<Task[]>([]);
+    const [users, setUsers] = useState<Assignee[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -14,6 +15,7 @@ export const useTasks = (): LoadTaskState => {
                 const response = await axios.get('/tasks');
                 const data = response.data;
                 setTasks(data["tasks"]);
+                setUsers(data["users"])
                 setLoading(false);
             } catch (err: any) {
                 console.log(err)
@@ -54,5 +56,5 @@ export const useTasks = (): LoadTaskState => {
     };
 
 
-    return { tasks, loading, error, addTask, deleteTask };
+    return { tasks, loading, error, addTask, deleteTask,users };
 };

@@ -51,7 +51,7 @@ function MenuComponent(onClick: Function, idMenuSelected: number) {
     );
 }
 const TaskComponent: React.FC = () => {
-    const { tasks, loading, error, addTask, deleteTask } = useTasks();
+    const { tasks, loading, error, addTask, deleteTask, users } = useTasks();
 
     const [filterTasks, setFilterTask] = useState<Task[]>();
 
@@ -98,7 +98,7 @@ const TaskComponent: React.FC = () => {
 
         const data = filterTask(menuSlected.name, tasks);
         setFilterTask(data);
-    }, [tasks, menuSlected])
+    }, [tasks,users, menuSlected])
 
 
     // if (loading) return <p>Chargement des tâches...</p>;
@@ -127,7 +127,7 @@ const TaskComponent: React.FC = () => {
                         isOpen={showModal}
                         onClose={handleCloseModal}
                         title={"Add new task"}
-                        children={<FormTaskComponent onAddTask={onAddTask} onDeleteTask={handleDeleteTask} task={selectedTask} />}
+                        children={<FormTaskComponent onAddTask={onAddTask} onDeleteTask={handleDeleteTask} task={selectedTask} listAssignes={users} />}
                     ></ModalComponent>
                 )}
                 {/* <button onClick={() => handleDeleteTask(1)}>delete</button> */}

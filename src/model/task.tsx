@@ -16,6 +16,7 @@ export interface Task {
 
 export interface LoadTaskState {
     tasks: Task[];
+    users: Assignee[];
     loading: boolean;
     error: string | null;
     addTask: (task: Task) => void;

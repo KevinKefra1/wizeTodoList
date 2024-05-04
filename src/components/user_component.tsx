@@ -35,19 +35,7 @@ const UserComponent: React.FC = () => {
     };
 
     const onAddUser = (newUser: Assignee) => {
-        // console.log(newUser.name);
-        // const existingUserIndex = listData.findIndex(
-        //     (user) => user.name === newUser.name
-        // );
-
-        // if (existingUserIndex !== -1) {
-        //     const updatedUsers = [...listData];
-        //     updatedUsers[existingUserIndex] = newUser;
-        //     setListData(updatedUsers);
-        //     setSelectedUser(undefined);
-        // } else {
-        //     setListData((prevUsers) => [...prevUsers, newUser]);
-        // }
+        
         setSelectedUser(undefined);
         addUser(newUser)
         handleCloseModal();

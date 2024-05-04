@@ -15,6 +15,7 @@ export interface ModalTaskProps {
     onAddTask: (task: Task) => void;
     onDeleteTask: (task: Task) => void;
     task?: Task;
+    listAssignes:Assignee[];
 }
 
 
