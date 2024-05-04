@@ -9,13 +9,16 @@ export const useTasks = () => {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      try {
+      console.log("jfjfj")
+        try {
         setLoading(true);
         const response = await axios.get('/tasks');
         const data = response.data;
-        setTasks(data);
+        console.log(data["tasks"])
+        setTasks(data["tasks"]);
         setLoading(false);
       } catch (err:any) {
+          console.log(err)
         setError(err.message);
         setLoading(false);
       }

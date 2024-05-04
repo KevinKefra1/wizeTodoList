@@ -15,8 +15,8 @@ api.onGet('/tasks').reply(200, {
 });
 
 
-api.onGet('/task/:id').reply((config: any) => {
-    const taskId = parseInt(config.url?.match(/\/task\/(.+)/)?.[1] || '', 10);
+api.onGet('/tasks/:id').reply((config: any) => {
+    const taskId = parseInt(config.url?.match(/\/tasks\/(.+)/)?.[1] || '', 10);
     const task = tasks.find((task) => task.id === taskId);
   
     if (task) {

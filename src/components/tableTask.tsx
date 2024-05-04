@@ -25,7 +25,7 @@ const columns: GridColDef[] = [
         field: "startDate",
         headerName: " ",
         minWidth: 250,
-        valueFormatter: (date: Date) => formatDate(date),
+        valueFormatter: (date: any) => formatDate(new Date(date)),
     },
 ];
 

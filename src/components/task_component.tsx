@@ -14,6 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { filterTask } from "../utils";
 import { FormTaskComponent } from "./";
+import { useTasks } from "../hooks/useTasks";
 
 
 
@@ -54,7 +55,9 @@ function MenuComponent(onClick: Function, idMenuSelected: number) {
     );
 }
 const TaskComponent: React.FC = () => {
-    const [listData, setListData] = useState<Task[]>([...listTasks]);
+    const { tasks, loading, error } = useTasks();
+
+    const [listData, setListData] = useState<Task[]>([]);
     const [filterTasks, setFilterTask] = useState<Task[]>();
 
     const [showModal, setShowModal] = useState(false);
@@ -88,10 +91,6 @@ const TaskComponent: React.FC = () => {
         handleCloseModal();
     };
 
-
-
-
-
     const openTask = (task: Task) => {
         handleCloseModal();
         setSelectedTask(task);
@@ -100,8 +99,6 @@ const TaskComponent: React.FC = () => {
 
     const onCLickMenu = (menu: Menu) => {
         setSelectedMenu(menu);
-
-
     };
 
     const handleDeleteTask = (oldTask: Task) => {
@@ -117,6 +114,10 @@ const TaskComponent: React.FC = () => {
         const data = filterTask(menuSlected.name, listData);
         setFilterTask(data);
     }, [listData, menuSlected])
+
+
+    // if (loading) return <p>Chargement des tâches...</p>;
+    // if (error) return <p>Erreur : {error}</p>;
 
     return (
         <div className="flex w-full h-full flex-row gap-8">
@@ -146,7 +147,7 @@ const TaskComponent: React.FC = () => {
                 )}
                 {/* <button onClick={() => handleDeleteTask(1)}>delete</button> */}
 
-                {TableTasks(filterTasks ?? listData, openTask)}
+                {TableTasks( tasks, openTask)}
             </div>
         </div>
     );

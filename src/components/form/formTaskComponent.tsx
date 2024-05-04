@@ -7,7 +7,7 @@ import { Label, ModalTaskProps, PriorityOfTask, Task } from '../../model';
 
 
 export default function FormTaskComponent({ onAddTask, onDeleteTask, task }: ModalTaskProps) {
-    const [formData, setFormData] = useState({ title: task?.title ?? "", description: task?.description ?? "", startDate: task?.startDate ?? new Date(), endDate: task?.endDate ?? undefined, labels: task?.labels ?? [Label.CSS], assignee: task?.assignee ?? listAssignes[0], priority: task?.priority ?? PriorityOfTask.HIGH, });
+    const [formData, setFormData] = useState({ title: task?.title ?? "", description: task?.description ?? "", startDate: task?.startDate !== null ? new Date(task?.startDate ?? "") : new Date(), endDate: task?.endDate ?? undefined, labels: task?.labels ?? [Label.CSS], assignee: task?.assignee ?? listAssignes[0], priority: task?.priority ?? PriorityOfTask.HIGH, });
     const [isValidTitle, setIsValidTitle] = useState(true);
     const [confirmed, setIsConfirmed] = useState(task?.endDate !== undefined);
 
