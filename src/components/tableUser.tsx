@@ -27,38 +27,49 @@ const columns: GridColDef[] = [
 
 
 export default function TableAssignee(users: Assignee[], onClick: Function) {
-    const [filteredTasks, setFilteredUsers] = useState<Assignee[]>(users);
+    const [filteredUsers, setFilteredUsers] = useState<Assignee[]>(users);
     const [filterBy, setFilter] = useState("none");
     const [search, setSearchField] = useState("");
 
-    // const handleFilter = () => {
-    //     let filters = [];
-    //     if (filterBy === "label") {
-    //         filters = tasks.filter((task) => {
-    //             return (
-    //                 task.labels.some((label) => label.toLowerCase().includes(search))
-    //             );
-    //         })
-    //     } else if (filterBy.includes("assigne")) {
-    //         filters = tasks.filter((task) => {
-    //             var name = task.assignee?.name ?? "";
-    //             var email = task.assignee?.email ?? "";
-    //             return (
-    //                 name.toLowerCase().includes(search) ||
-    //                 email.toLowerCase().includes(search)
-    //             );
-    //         })
-    //     } else {
-    //         filters = tasks.filter((task) => {
-    //             return (
-    //                 task.title.toLowerCase().includes(search) ||
-    //                 task.description.toLowerCase().includes(search) ||
-    //                 task.labels.some((label) => label.toLowerCase().includes(search))
-    //             );
-    //         });
-    //     }
-    //     setFilteredTasks(filters)
-    // }
+    const handleFilter = () => {
+        let filters = [];
+        if (filterBy === "name") {
+            filters = users.filter((user) => {
+                var name = user?.name ?? "";
+                return (
+                    user.name.toLowerCase().includes(search)
+                );
+            })
+        } else if (filterBy.includes("email")) {
+            filters = users.filter((user) => {
+
+                var email = user?.email ?? "";
+                return (
+
+                    email.toLowerCase().includes(search)
+                );
+            })
+        } else if (filterBy.includes("phone")) {
+            filters = users.filter((user) => {
+
+                var phone = user?.phone ?? "";
+                return (
+
+                    phone.toLowerCase().includes(search)
+                );
+            })
+        } else {
+            filters = users.filter((user) => {
+                const { phone, email, name } = user;
+                return (
+                    email.toLowerCase().includes(search) ||
+                    phone.toLowerCase().includes(search) ||
+                    name.toLowerCase().includes(search)
+                );
+            });
+        }
+        setFilteredUsers(filters)
+    }
 
     const handleSearch = (event: any) => {
         const searchTerm = event.target.value.toLowerCase();
@@ -76,9 +87,9 @@ export default function TableAssignee(users: Assignee[], onClick: Function) {
         onClick(event.row);
     };
 
-    // useEffect(() => {
-    //     handleFilter();
-    // }, [filterBy, search])
+    useEffect(() => {
+        handleFilter();
+    }, [filterBy, search, users])
 
     return (
         <div className="h-full flex flex-col gap-4">
@@ -100,15 +111,16 @@ export default function TableAssignee(users: Assignee[], onClick: Function) {
                             onChange={e => handleFilterByChange(e.target.value)}
                         >
                             <option value={"none"}>None</option>
-                            <option value={"assigne"}>Assignee </option>
-                            <option value={"label"}>Label</option>
+                            <option value={"name"}>Name </option>
+                            <option value={"email"}>Email</option>
+                            <option value={"phone"}>Phone</option>
                         </select>
                     </div>
                 </div>
                 <div></div>
             </div>
             <DataGrid
-                rows={users}
+                rows={filteredUsers}
                 columns={columns}
                 initialState={{
                     pagination: {

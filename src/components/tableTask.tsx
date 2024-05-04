@@ -116,9 +116,9 @@ export default function TableTasks(tasks: Task[], onClick: Function) {
         onClick(event.row);
     };
 
-    // useEffect(() => {
-    //     handleFilter();
-    // }, [filterBy, search])
+    useEffect(() => {
+        handleFilter();
+    }, [filterBy, search, tasks])
 
     return (
         <div className="h-full flex flex-col gap-4">
@@ -148,7 +148,7 @@ export default function TableTasks(tasks: Task[], onClick: Function) {
                 <div></div>
             </div>
             <DataGrid
-                rows={tasks}
+                rows={filteredTasks}
                 columns={columns}
                 initialState={{
                     pagination: {
