@@ -103,7 +103,7 @@ export default function FormTaskComponent({ onAddTask, onDeleteTask, task,listAs
                         <span className={`${isValidTitle ? "hidden" : ""} mt-2 `}>Title is not valid</span>
                     </div>
 
-                    <div className='w-full relative  grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4 gap-4 h-16 items-center justify-center '>
+                    <div className='w-full relative  grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4 gap-4 lg:h-16 items-center justify-center '>
                         <select
                             className="p-4 bg-white border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             value={priority}

@@ -94,7 +94,7 @@ export default function TableAssignee(users: Assignee[], onClick: Function) {
 
     return (
         <div className="h-full flex flex-col gap-4">
-            <div className="flex gap-4 h-8 items-end justify-end">
+            <div className="flex gap-4 h-8 items-end justify-between my-4 md:my-auto md:justify-end">
                 <button
                     type="button"
                     onClick={e => exportUsersToPDF(filteredUsers)}

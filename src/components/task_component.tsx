@@ -6,7 +6,7 @@ import TableTasks from "./tableTask";
 import ModalComponent from "./modalComponent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faDotCircle,
+    faDotCircle, faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { filterTask } from "../utils";
 import { FormTaskComponent } from "./";
@@ -50,7 +50,12 @@ function MenuComponent(onClick: Function, idMenuSelected: number) {
         </>
     );
 }
-const TaskComponent: React.FC = () => {
+type TaskComponentProps = {
+    isOpen: boolean;
+    onClick: () => void;
+};
+
+const TaskComponent: React.FC<TaskComponentProps> = ({ isOpen, onClick }) => {
     const { tasks, loading, error, addTask, deleteTask, users } = useTasks();
 
     const [filterTasks, setFilterTask] = useState<Task[]>();
@@ -91,28 +96,28 @@ const TaskComponent: React.FC = () => {
         setShowModal(false)
     };
 
-    const handleSearch = () => { };
-
 
     useEffect(() => {
 
         const data = filterTask(menuSlected.name, tasks);
         setFilterTask(data);
-    }, [tasks,users, menuSlected])
+    }, [tasks, users, menuSlected])
+
 
 
     // if (loading) return <p>Chargement des tâches...</p>;
     // if (error) return <p>Erreur : {error}</p>;
 
     return (
-        <div className="flex w-full h-full flex-row gap-8">
-            <div className="w-1/4 bg-white h-full pr-8">
+        <div className="relative flex w-full h-full flex-row gap-8">
+            <div className={`absolute z-40 ${isOpen ? "" : "w-0 hidden md:block"} md:relative shadow-lg md:shadow-md lg:w-1/4 bg-white h-full md:pr-8 rounded-r-xl`}>
                 <div className="mt-6 mx-8 mr-16">
                     <button
                         type="submit"
                         onClick={handleOpenModal}
                         className="w-full   p-3 border border-blue-500 text-blue-500 rounded-full hover:bg-blue-500 hover:text-white"
                     >
+                        <FontAwesomeIcon icon={faPlus} className="w-4 h-4 pr-2" />
                         Add Task
                     </button>
                 </div>
@@ -121,7 +126,7 @@ const TaskComponent: React.FC = () => {
                 </div>
                 <div>{LabelMenuComponent()}</div>
             </div>
-            <div className="w-full bg-white h-full py-8 px-8">
+            <div className="w-full bg-white h-full py-8 px-8 rounded-l-lg">
                 {showModal && (
                     <ModalComponent
                         isOpen={showModal}

@@ -13,9 +13,12 @@ import { useUsers } from "../hooks/useUsers";
 
 
 
+type UserComponentProps = {
+    isOpen: boolean;
+    onClick: () => void;
+};
 
-
-const UserComponent: React.FC = () => {
+const UserComponent: React.FC<UserComponentProps> = ({ isOpen, onClick }) => {
     const { users, loading, error, addUser, deleteUser } = useUsers();
 
     // const [listData, setListData] = useState<Assignee[]>([...listAssignes]);
@@ -69,7 +72,7 @@ const UserComponent: React.FC = () => {
 
     return (
         <div className="flex w-full h-full flex-row gap-8">
-            <div className="w-1/4 bg-white h-full pr-8">
+            <div className={`absolute z-40 ${isOpen ? "" : "w-0 hidden md:block"} md:relative shadow-lg md:shadow-md lg:w-1/4 bg-white h-full md:pr-8 rounded-r-xl`}>
                 <div className="mt-6 mx-8 mr-16">
                     <button
                         type="submit"
@@ -82,7 +85,7 @@ const UserComponent: React.FC = () => {
                 </div>
 
             </div>
-            <div className="w-full bg-white h-full py-8 px-8">
+            <div className="w-full bg-white h-full py-8 px-8 rounded-l-xl">
                 {showModal && (
                     <ModalComponent
                         isOpen={showModal}
