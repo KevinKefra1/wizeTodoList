@@ -55,9 +55,8 @@ function MenuComponent(onClick: Function, idMenuSelected: number) {
     );
 }
 const TaskComponent: React.FC = () => {
-    const { tasks, loading, error } = useTasks();
+    const { tasks, loading, error, addTask } = useTasks();
 
-    const [listData, setListData] = useState<Task[]>([]);
     const [filterTasks, setFilterTask] = useState<Task[]>();
 
     const [showModal, setShowModal] = useState(false);
@@ -74,20 +73,9 @@ const TaskComponent: React.FC = () => {
         setSelectedTask(undefined);
     };
 
-    const addTask = (newTask: Task) => {
-        console.log(newTask.description);
-        const existingTaskIndex = listData.findIndex(
-            (task) => task.id === newTask.id
-        );
-
-        if (existingTaskIndex !== -1) {
-            const updatedTasks = [...listData];
-            updatedTasks[existingTaskIndex] = newTask;
-            setListData(updatedTasks);
-            setSelectedTask(undefined);
-        } else {
-            setListData((prevTasks) => [...prevTasks, newTask]);
-        }
+    const onAddTask = (newTask: Task) => {
+        addTask(newTask)
+        setSelectedTask(undefined);
         handleCloseModal();
     };
 
@@ -102,7 +90,7 @@ const TaskComponent: React.FC = () => {
     };
 
     const handleDeleteTask = (oldTask: Task) => {
-        setListData((prevTasks) => prevTasks.filter((task) => task.id !== oldTask.id));
+        // setListData((prevTasks) => prevTasks.filter((task) => task.id !== oldTask.id));
         setShowModal(false)
     };
 
@@ -111,9 +99,9 @@ const TaskComponent: React.FC = () => {
 
     useEffect(() => {
 
-        const data = filterTask(menuSlected.name, listData);
+        const data = filterTask(menuSlected.name, tasks);
         setFilterTask(data);
-    }, [listData, menuSlected])
+    }, [tasks, menuSlected])
 
 
     // if (loading) return <p>Chargement des tâches...</p>;
@@ -142,12 +130,12 @@ const TaskComponent: React.FC = () => {
                         isOpen={showModal}
                         onClose={handleCloseModal}
                         title={"Add new task"}
-                        children={<FormTaskComponent onAddTask={addTask} onDeleteTask={handleDeleteTask} task={selectedTask} />}
+                        children={<FormTaskComponent onAddTask={onAddTask} onDeleteTask={handleDeleteTask} task={selectedTask} />}
                     ></ModalComponent>
                 )}
                 {/* <button onClick={() => handleDeleteTask(1)}>delete</button> */}
 
-                {TableTasks( tasks, openTask)}
+                {TableTasks(filterTasks ?? tasks, openTask)}
             </div>
         </div>
     );

@@ -13,7 +13,7 @@ export const filterTask = (filter: string, tasksData: Task[]): Task[] => {
 
         case "Today":
             const today = new Date().setHours(0, 0, 0, 0);
-            return tasksData.filter((task) => task.startDate.setHours(0, 0, 0, 0) === today);
+            return tasksData.filter((task) => new Date(task.startDate).setHours(0, 0, 0, 0) === today);
 
         case "Priority":
             return tasksData.filter((task) => task.priority.toString() === PriorityOfTask.HIGH.toString());
