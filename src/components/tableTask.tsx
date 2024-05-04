@@ -7,7 +7,7 @@ import { faDotCircle, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icon
 import { useState } from "react";
 import { useEffect } from "react";
 import { exportTasksToPDF } from "../utils/exportTaskToPDF";
-import { formatDate } from "../utils";
+import { exportTasksToExcel, formatDate } from "../utils";
 
 const columns: GridColDef[] = [
     { field: "title", headerName: "", width: 200 },
@@ -129,6 +129,7 @@ export default function TableTasks(tasks: Task[], onClick: Function) {
 
                 <button
                     type="button"
+                    onClick={e => exportTasksToExcel(filteredTasks)}
                     className=" w-36  p-3 py-1 border border-blue-500 text-blue-500 rounded-xl hover:bg-blue-500 hover:text-white"
                 >
                     Export to Excel

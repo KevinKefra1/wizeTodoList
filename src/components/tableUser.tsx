@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDotCircle, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useEffect } from "react";
-import { exportUsersToPDF } from "../utils";
+import { exportUsersToExcel, exportUsersToPDF } from "../utils";
 
 const columns: GridColDef[] = [
     { field: "name", headerName: "Name", width: 200 },
@@ -105,6 +105,7 @@ export default function TableAssignee(users: Assignee[], onClick: Function) {
 
                 <button
                     type="button"
+                    onClick={e => exportUsersToExcel(filteredUsers)}
                     className=" w-36  p-3 py-1 border border-blue-500 text-blue-500 rounded-xl hover:bg-blue-500 hover:text-white"
                 >
                     Export to Excel
