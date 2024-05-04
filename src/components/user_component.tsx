@@ -35,7 +35,7 @@ const UserComponent: React.FC = () => {
     };
 
     const onAddUser = (newUser: Assignee) => {
-        
+
         setSelectedUser(undefined);
         addUser(newUser)
         handleCloseModal();
@@ -61,11 +61,11 @@ const UserComponent: React.FC = () => {
 
 
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     const data = filterTask(menuSlected.name, listData);
-    //     setFilterUser(data);
-    // }, [listData, menuSlected])
+        // const data = filterTask(menuSlected.name, listData);
+        // setFilterUser(data);
+    }, [users])
 
     return (
         <div className="flex w-full h-full flex-row gap-8">

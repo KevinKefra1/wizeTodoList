@@ -41,9 +41,9 @@ const AssigneeComponent = ({ params }: any) => {
     const { description } = params.row;
     const assigneeName = params.row.assignee?.name;
     return (
-        <div className="flex gap-4 text-md text-gray-600 items-center h-full">
-            <span className="w-32">{assigneeName}</span>
-            <span>{description}</span>
+        <div className="flex gap-4 text-md text-gray-600 gap-8 items-center h-full text-start">
+            <span className="w-24 overflow-hidden whitespace-nowrap text-overflow-ellipsis">{assigneeName}</span>
+            <span className="text-start overflow-hidden whitespace-nowrap text-overflow-ellipsis">{description}</span>
         </div>
     );
 };
