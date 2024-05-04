@@ -3,6 +3,10 @@ import logo from './logo.svg';
 import './App.css';
 import TaskComponent from './components/task_component';
 import UserComponent from './components/user_component';
+import axios from 'axios';
+import api from './api';
+
+api.onAny().passThrough();
 
 function App() {
   const [page, setPage] = useState(1)
