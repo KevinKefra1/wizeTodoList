@@ -1,3 +1,4 @@
+import { Autocomplete, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { listAssignes } from '../../api/data';
 import { Label, ModalTaskProps, PriorityOfTask, Task } from '../../model';
@@ -48,10 +49,12 @@ export default function FormTaskComponent({ onAddTask, onDeleteTask, task }: Mod
     };
 
 
-    const handleAssigneChange = (e: any) => {
-        const assigneeId = Number(e.target.value);
-        const assignee = listAssignes.find(assignee => assignee.id === assigneeId);
-        setFormData({ ...formData, assignee: assignee ?? listAssignes[1] });
+    const handleAssigneChange = (e: string | null) => {
+        if (e !== null) {
+            const assigneeName = e;
+            const assignee = listAssignes.find(assignee => assignee.name === assigneeName);
+            setFormData({ ...formData, assignee: assignee ?? listAssignes[1] });
+        }
     };
 
     const handleAddTask = (event: any) => {
@@ -99,9 +102,9 @@ export default function FormTaskComponent({ onAddTask, onDeleteTask, task }: Mod
                         <span className={`${isValidTitle ? "hidden" : ""} mt-2 `}>Title is not valid</span>
                     </div>
 
-                    <div className='w-full  grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4 gap-4 h-16'>
+                    <div className='w-full relative  grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4 gap-4 h-16 items-center justify-center '>
                         <select
-                            className="mt-1 p-4 bg-white border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="p-4 bg-white border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             value={priority}
                             onChange={e => handlePriorityChange(e.target.value)}
                         >
@@ -110,7 +113,7 @@ export default function FormTaskComponent({ onAddTask, onDeleteTask, task }: Mod
                             <option value={PriorityOfTask.HIGH}>HIGH</option>
                         </select>
 
-                        <select
+                        {/* <select
                             className='mt-1 p-4 bg-white border  text-gray-900 text-md rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 '
                             value={assignee.id ?? ''}
                             onChange={handleAssigneChange}
@@ -121,10 +124,22 @@ export default function FormTaskComponent({ onAddTask, onDeleteTask, task }: Mod
                                     {assignee.name.toUpperCase()}
                                 </option>
                             ))}
-                        </select>
+                        </select> */}
 
+                        <Autocomplete
+                            value={assignee.name ?? ''}
+                            onChange={(event: any, newValue: string | null) => {
+                                handleAssigneChange(newValue)
+                            }}
+                            className=' bg-white border  text-gray-900 text-md rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 '
+                            disablePortal
+                            options={listAssignes.map(assignee => assignee.name)}
+                            sx={{ flex: 1 }}
 
-                        <select multiple value={selectedLabels} onChange={handleChange} className='mt-1 p-4 bg-white border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                            renderInput={(params) => <TextField {...params} label="Assignee" />}
+                        />
+
+                        <select multiple value={selectedLabels} onChange={handleChange} className=' p-4 bg-white border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-14'>
                             {Object.entries(Label).map(([key, value]) => (
                                 <option key={value} value={value}>
                                     {key}
@@ -132,7 +147,7 @@ export default function FormTaskComponent({ onAddTask, onDeleteTask, task }: Mod
                             ))}
                         </select>
 
-                        <input type="date" className='mt-1 p-4 bg-white border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' name="startDate" value={startDate.toISOString().substring(0, 10)} onChange={handleDateChange} />
+                        <input type="date" className=' p-4 bg-white border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' name="startDate" value={startDate.toISOString().substring(0, 10)} onChange={handleDateChange} />
 
                     </div>
 
