@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faPlus
 } from "@fortawesome/free-solid-svg-icons";
+import TableAssignee from "./tableUser";
 
 
 
@@ -14,7 +15,7 @@ import {
 
 const UserComponent: React.FC = () => {
     const [listData, setListData] = useState<Assignee[]>([...listAssignes]);
-    const [filterTasks, setFilterUser] = useState<Assignee[]>();
+    const [filterUsers, setFilterUser] = useState<Assignee[]>();
 
     const [showModal, setShowModal] = useState(false);
     const [isSearchOrFilter, setSearchOrFilter] = useState(false);
@@ -77,8 +78,9 @@ const UserComponent: React.FC = () => {
                     <button
                         type="submit"
                         onClick={handleOpenModal}
-                        className="w-full   p-3 border border-blue-500 text-blue-500 rounded-full hover:bg-blue-500 hover:text-white"
+                        className="w-full  p-3 border border-blue-500 text-blue-500 rounded-full hover:bg-blue-500 hover:text-white"
                     >
+                        <FontAwesomeIcon icon={faPlus} className="w-4 h-4 pr-2"></FontAwesomeIcon>
                         Add User
                     </button>
                 </div>
@@ -95,7 +97,7 @@ const UserComponent: React.FC = () => {
                 )}
                 {/* <button onClick={() => handleDeleteTask(1)}>delete</button> */}
 
-                {/* {TableTasks(filterTasks ?? listData, openTask)} */}
+                {TableAssignee(filterUsers ?? listData, openUser)}
             </div>
         </div>
     );
