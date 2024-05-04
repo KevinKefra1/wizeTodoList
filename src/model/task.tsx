@@ -1,6 +1,6 @@
 import { Assignee, Label, PriorityOfTask } from ".";
 
-export default interface Task {
+export interface Task {
     id: number;
     title: string;
     assignee: Assignee;
@@ -14,4 +14,8 @@ export default interface Task {
 
 
 
-
+export interface LoadTaskState {
+    tasks: Task[];
+    loading: boolean;
+    error: string | null;
+}

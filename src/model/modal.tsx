@@ -1,11 +1,11 @@
 import Assignee from "./assigne";
-import Task from "./task";
+import { Task } from "./task";
 
 export interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
     children: any,
-    title:string
+    title: string
 
 }
 
