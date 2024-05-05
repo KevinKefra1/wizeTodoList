@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { listAssignes } from '../../api/data';
 import { User, ModalUserProps, } from '../../model';
 
 
 
 export default function FormUserComponent({ onAddUser, onDeleteUser, user }: ModalUserProps) {
+    const { t } = useTranslation();
+
     const [formData, setFormData] = useState({ email: user?.email ?? "", name: user?.name ?? "", phone: user?.phone ?? "" });
     const [isValidTitle, setIsValidTitle] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
@@ -41,20 +44,27 @@ export default function FormUserComponent({ onAddUser, onDeleteUser, user }: Mod
     const handleAddUser = (event: any) => {
         event.preventDefault();
         searchUserByName(name, user?.id ?? -1)
+        console.log(name
+            .trim.length)
         if (name.trim().length < 3) {
             setIsValidTitle(false);
-            setErrorMessage("Name is invalid !!")
+            
+            setErrorMessage(t("invalidName"))
+            return
         } else if (searchUserByName(name, user?.id ?? -1)) {
             setIsValidTitle(false);
-            setErrorMessage("Name is use by another user !!")
+
         }
         else {
             setIsValidTitle(true);
+
         }
 
 
         if (!isValidEmailFormat(email)) {
             setValidEmail(false);
+            setErrorMessage(t("invalidEmail"))
+
         } else {
             setValidEmail(true)
         }
@@ -95,13 +105,13 @@ export default function FormUserComponent({ onAddUser, onDeleteUser, user }: Mod
                     <div className="mt-4 flex flex-col items-start ">
                         <input type="email" name="email" placeholder='Email ' className={`mt-1 p-4 w-full border rounded-md ${!isNotValidemail && "border-red-500"}`} required value={email}
                             onChange={handleEmailChange} />
-                        <span className={`${isNotValidemail ? "hidden" : ""} mt-2 `}>Email is not valid</span>
+                        <span className={`${isNotValidemail ? "hidden" : ""} mt-2 `}>{t('Email is not valid')}</span>
                     </div>
 
                     <div className='w-full flex flex-row mb-8 items-end justify-between'>
-                        {user?.id !== undefined ? <button type='button' onClick={e => onDeleteUser(user)} className='w-24 bg-white border text-red-500 border-red-500 px-4 py-2 rounded rounded-lg hover:bg-red-500 hover:text-white  '>Delete</button>
+                        {user?.id !== undefined ? <button type='button' onClick={e => onDeleteUser(user)} className='w-24 bg-white border text-red-500 border-red-500 px-4 py-2 rounded rounded-lg hover:bg-red-500 hover:text-white  '>{t("delete")}</button>
                             : (<div className='w-full'></div>)}
-                        <button type='submit' className='w-24  bg-white border text-blue-500 border-blue-500 px-4 py-2 rounded rounded-lg hover:bg-blue-500 hover:text-white  '>Save</button>
+                        <button type='submit' className='w-24  bg-white border text-blue-500 border-blue-500 px-4 py-2 rounded rounded-lg hover:bg-blue-500 hover:text-white  '>{t("save")}</button>
 
                     </div>
                 </form>

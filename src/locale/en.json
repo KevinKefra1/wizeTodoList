@@ -4,13 +4,30 @@
       "all":"All",
       "priority":"Priority",
       "today":"Todayi",
-      "Completed":"Completed",
+      "completed":"Completed",
       "task":"Task",
       "user":"User",
       "exportTo":"Export to  ",
       "searchHere":"Search here",
       "none":"None",
       "name":"Name",
-      "phone": "Phone"
+      "phone": "Phone",
+      "addNewTask":"Add new task",
+      "invalidName":"Name is invalid !!",
+      "nameIsUse":"Name is use by another user !!",
+      "save":"Save",
+      "delete":"Delete",
+      "invalidEmail":"Email is not valid",
+      "closeModal":"CLose Modal",
+      "addUser":"Add user",
+      "addNewUser": "Add new user",
+      "invalidTitle" : "Title is not valid (min 3 char)",
+      "low":"Low",
+      "medium":"Medium",
+      "high" : "HIGH",
+      "taskTitle":"Task title",
+      "currentLanguage":"Current language",
+      "changeLanguage": "Change language"
+
     }
   }

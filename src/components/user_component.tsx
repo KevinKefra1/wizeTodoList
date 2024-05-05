@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { listAssignes } from "../api/data";
 import { useState } from "react";
 import { User } from "../model";
 import ModalComponent from "./modalComponent";
@@ -10,6 +9,7 @@ import {
 import TableAssignee from "./tableUser";
 import FormUserComponent from "./form/formUserComponent";
 import { useUsers } from "../hooks/useUsers";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -19,13 +19,13 @@ type UserComponentProps = {
 };
 
 const UserComponent: React.FC<UserComponentProps> = ({ isOpen, onClick }) => {
-    const { users, loading, error, addUser, deleteUser } = useUsers();
+    const { users,addUser, deleteUser } = useUsers();
+    const { t } = useTranslation();
 
     // const [listData, setListData] = useState<User[]>([...listAssignes]);
     const [filterUsers, setFilterUser] = useState<User[]>();
 
     const [showModal, setShowModal] = useState(false);
-    const [isSearchOrFilter, setSearchOrFilter] = useState(false);
     const [selectedUser, setSelectedUser] = useState<User>();
 
     const handleOpenModal = () => {
@@ -80,7 +80,7 @@ const UserComponent: React.FC<UserComponentProps> = ({ isOpen, onClick }) => {
                         className="w-full  p-3 border border-blue-500 text-blue-500 rounded-full hover:bg-blue-500 hover:text-white"
                     >
                         <FontAwesomeIcon icon={faPlus} className="w-4 h-4 pr-2"></FontAwesomeIcon>
-                        Add User
+                        {t('addUser')}
                     </button>
                 </div>
 
@@ -90,11 +90,10 @@ const UserComponent: React.FC<UserComponentProps> = ({ isOpen, onClick }) => {
                     <ModalComponent
                         isOpen={showModal}
                         onClose={handleCloseModal}
-                        title={"Add new User"}
+                        title={t("addNewUser")}
                         children={<FormUserComponent onAddUser={onAddUser} onDeleteUser={handleDeleteUser} user={selectedUser} />}
                     ></ModalComponent>
                 )}
-                {/* <button onClick={() => handleDeleteTask(1)}>delete</button> */}
 
                 {TableAssignee(filterUsers ?? users, openUser)}
             </div>

@@ -1,11 +1,13 @@
 import { Autocomplete, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Label, ModalTaskProps, PriorityOfTask, Task } from '../../model';
 
 
 
 
 export default function FormTaskComponent({ onAddTask, onDeleteTask, task, listAssignes }: ModalTaskProps) {
+    const { t } = useTranslation();
 
     const [formData, setFormData] = useState({ title: task?.title ?? "", description: task?.description ?? "", startDate: task?.startDate !== undefined ? new Date(task?.startDate ?? "") : new Date(), endDate: task?.endDate ?? undefined, labels: task?.labels ?? [Label.CSS], assignee: task?.assignee ?? listAssignes[0], priority: task?.priority ?? PriorityOfTask.HIGH, });
     const [isValidTitle, setIsValidTitle] = useState(true);
@@ -98,9 +100,9 @@ export default function FormTaskComponent({ onAddTask, onDeleteTask, task, listA
             <div className=' px-4 md:px-8 mt-4'>
                 <form onSubmit={handleAddTask} className="flex flex-col gap-8">
                     <div className="mt-4 flex flex-col items-start ">
-                        <input type="text" name="title" placeholder='Task Title' className={`mt-1 p-4 w-full border rounded-md ${!isValidTitle && "border-red-500"}`} required value={title}
+                        <input type="text" name="title" placeholder={t('taskTitle')} className={`mt-1 p-4 w-full border rounded-md ${!isValidTitle && "border-red-500"}`} required value={title}
                             onChange={handleInputChange} />
-                        <span className={`${isValidTitle ? "hidden" : ""} mt-2 `}>Title is not valid</span>
+                        <span className={`${isValidTitle ? "hidden" : ""} mt-2 `}></span>
                     </div>
 
                     <div className='w-full relative  grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4 gap-4 lg:h-16 items-center justify-center '>
@@ -109,9 +111,9 @@ export default function FormTaskComponent({ onAddTask, onDeleteTask, task, listA
                             value={priority}
                             onChange={e => handlePriorityChange(e.target.value)}
                         >
-                            <option value={PriorityOfTask.LOW}>LOW</option>
-                            <option value={PriorityOfTask.MEDIUM}>MEDIUM</option>
-                            <option value={PriorityOfTask.HIGH}>HIGH</option>
+                            <option value={PriorityOfTask.LOW}>{t("low")}</option>
+                            <option value={PriorityOfTask.MEDIUM}>{t("medium")}</option>
+                            <option value={PriorityOfTask.HIGH}>{t("high")}</option>
                         </select>
 
 

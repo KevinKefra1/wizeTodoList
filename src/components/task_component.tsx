@@ -11,11 +11,10 @@ import {
 import { filterTask } from "../utils";
 import { FormTaskComponent } from "./";
 import { useTasks } from "../hooks/useTasks";
-
+import { useTranslation } from 'react-i18next';
 
 
 function LabelMenuComponent() {
-
 
     return (
         <div className="flex flex-col gap-4  items-start px-8">
@@ -34,6 +33,8 @@ function LabelMenuComponent() {
 }
 
 function MenuComponent(onClick: Function, idMenuSelected: number) {
+    const {t} = useTranslation();
+
     return (
         <>
             {listMenu.map((menu: Menu) => (
@@ -44,7 +45,7 @@ function MenuComponent(onClick: Function, idMenuSelected: number) {
                         } flex items-center px-8 gap-4 rounded-r-full`}
                 >
                     <FontAwesomeIcon icon={menu.icon} />
-                    <span>{menu.name}</span>
+                    <span>{t(menu.name.toLocaleLowerCase())}</span>
                 </div>
             ))}
         </>
@@ -57,7 +58,7 @@ type TaskComponentProps = {
 
 const TaskComponent: React.FC<TaskComponentProps> = ({ isOpen, onClick }) => {
     const { tasks, loading, error, addTask, deleteTask, users } = useTasks();
-
+    const {t} = useTranslation();
     const [filterTasks, setFilterTask] = useState<Task[]>();
 
     const [showModal, setShowModal] = useState(false);
@@ -118,7 +119,7 @@ const TaskComponent: React.FC<TaskComponentProps> = ({ isOpen, onClick }) => {
                         className="w-full   p-3 border border-blue-500 text-blue-500 rounded-full hover:bg-blue-500 hover:text-white"
                     >
                         <FontAwesomeIcon icon={faPlus} className="w-4 h-4 pr-2" />
-                        Add Task
+                       {t("addTask")}
                     </button>
                 </div>
                 <div className="my-24 py-8 ">
@@ -131,7 +132,7 @@ const TaskComponent: React.FC<TaskComponentProps> = ({ isOpen, onClick }) => {
                     <ModalComponent
                         isOpen={showModal}
                         onClose={handleCloseModal}
-                        title={"Add new task"}
+                        title={t("addNewTask")}
                         children={<FormTaskComponent onAddTask={onAddTask} onDeleteTask={handleDeleteTask} task={selectedTask} listAssignes={users} />}
                     ></ModalComponent>
                 )}

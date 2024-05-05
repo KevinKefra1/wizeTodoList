@@ -4,13 +4,30 @@
       "all":"Tous",
       "priority":"Prioritaire",
       "today":"Aujourd'hui",
-      "Completed":"Terminer",
+      "completed":"Terminer",
       "task":"Tache",
       "user":"Membre",
       "exportTo":"Exporter au format ",
       "searchHere":"Rechercher ici ",
       "none":"Aucun",
       "name":"Nom",
-      "phone": "Telephone"
+      "phone": "Telephone",
+      "addNewTask":"Ajouter une nouvelle tache",
+      "invalidName":"Nom invalide !!",
+      "nameIsUse":"Un utilisation possede deja ce nom !!",
+      "save":"Enregister",
+      "delete":"Supprimer",
+      "closeModal":"Fermer Modal",
+      "addUser":"Ajouter un membre",
+      "addNewUser": "Ajouter un nouveau membre",
+      "invalidTitle": "Le titre est invalide (min 3 caracteres)",
+      "low":"PETIT",
+      "medium":"MOYEN",
+      "high" : "ELEVE",
+      "taskTitle":"Titre de la tache",
+      "currentLanguage":"Langue courante",
+      "changeLanguage": "Changer de langue"
+
+      
     }
   }

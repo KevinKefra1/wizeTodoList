@@ -7,30 +7,40 @@ import { faDotCircle, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icon
 import { useState } from "react";
 import { useEffect } from "react";
 import { exportUsersToExcel, exportUsersToPDF } from "../utils";
+import { useTranslation } from "react-i18next";
 
-const columns: GridColDef[] = [
-    { field: "name", headerName: "Name", width: 200 },
-    {
-        field: "email",
-        headerName: "",
-        flex: 1,
-        // renderCell: (params) => <AssigneeComponent params={params} />,
-    },
-    {
-        field: "phone",
-        headerName: "",
-        width: 150,
-        // renderCell: (params) => <Labelcomponent params={params} />,
-    },
 
-];
+
 
 
 
 export default function TableAssignee(users: User[], onClick: Function) {
+    const { t } = useTranslation();
+
+
     const [filteredUsers, setFilteredUsers] = useState<User[]>(users);
     const [filterBy, setFilter] = useState("none");
     const [search, setSearchField] = useState("");
+
+
+
+    const columns: GridColDef[] = [
+        { field: "name", headerName: t("name"), width: 200 },
+        {
+            field: "email",
+            headerName: "",
+            flex: 1,
+            // renderCell: (params) => <AssigneeComponent params={params} />,
+        },
+        {
+            field: "phone",
+            headerName: "",
+            width: 150,
+            // renderCell: (params) => <Labelcomponent params={params} />,
+        },
+
+    ];
+
 
     const handleFilter = () => {
         let filters = [];
@@ -100,7 +110,7 @@ export default function TableAssignee(users: User[], onClick: Function) {
                     onClick={e => exportUsersToPDF(filteredUsers)}
                     className="w-36   p-3 py-1 border border-blue-500 text-blue-500 rounded-xl hover:bg-blue-500 hover:text-white"
                 >
-                    Export to PDF
+                    {t("exportTo")} PDF
                 </button>
 
                 <button
@@ -108,7 +118,7 @@ export default function TableAssignee(users: User[], onClick: Function) {
                     onClick={e => exportUsersToExcel(filteredUsers)}
                     className=" w-36  p-3 py-1 border border-blue-500 text-blue-500 rounded-xl hover:bg-blue-500 hover:text-white"
                 >
-                    Export to Excel
+                    {t("exportTo")} Excel
                 </button>
             </div>
             <div className="w-full h-16 py-2  px-8 flex flex-row">
@@ -117,7 +127,7 @@ export default function TableAssignee(users: User[], onClick: Function) {
                     <div className="flex bg-blue-50 pl-4 w-64 items-center space-x-4 h-full rounded-full">
 
                         <FontAwesomeIcon icon={faMagnifyingGlass} className="h-4 w-4 opacity-30"></FontAwesomeIcon>
-                        <input type={"search"} name="search" placeholder='Search here' className={`bg-transparent h-full px-4 w-full border-none focus:outline-none`} required
+                        <input type={"search"} name="search" placeholder={t("searchHere")} className={`bg-transparent h-full px-4 w-full border-none focus:outline-none`} required
                             onChange={handleSearch} />
                     </div>
 
@@ -128,10 +138,10 @@ export default function TableAssignee(users: User[], onClick: Function) {
                             value={filterBy}
                             onChange={e => handleFilterByChange(e.target.value)}
                         >
-                            <option value={"none"}>None</option>
-                            <option value={"name"}>Name </option>
-                            <option value={"email"}>Email</option>
-                            <option value={"phone"}>Phone</option>
+                            <option value={"none"}>{t('none')}</option>
+                            <option value={"name"}>{t("name")} </option>
+                            <option value={"email"}>{t("email")}</option>
+                            <option value={"phone"}>{t("phone")}</option>
                         </select>
                     </div>
                 </div>

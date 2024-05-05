@@ -14,9 +14,9 @@ import { useTranslation } from 'react-i18next';
 api.onAny().passThrough();
 
 function App() {
-  const { t, i18n: {changeLanguage, language} } = useTranslation();
+  const { t, i18n: { changeLanguage, language } } = useTranslation();
   const [currentLanguage, setCurrentLanguage] = useState(language)
-  
+
   const handleChangeCurrentLanguage = () => {
     const newLanguage = currentLanguage === "en" ? "fr" : "en";
     setCurrentLanguage(newLanguage);
@@ -68,8 +68,20 @@ function App() {
             onClick={(e) => {
               handleChangePage(0)
             }}
-            className={`relative mx-3 md:mx-0  min-w-8   md:px-4  py-1 md:py-2 cursor-pointer rounded-xl hover:font-bold  font-medium text-lg hover:text-blue-500 group   ${page === 0 ? "text-white ease-out text-blue-500" : ""} `}> User </button>
+            className={`relative mx-3 md:mx-0  min-w-8   md:px-4  py-1 md:py-2 cursor-pointer rounded-xl hover:font-bold  font-medium text-lg hover:text-blue-500 group   ${page === 0 ? "text-white ease-out text-blue-500" : ""} `}> {t('user')} </button>
 
+        </div>
+        <div>
+          <h3>
+            {t('currentLanguage')} : {currentLanguage}
+          </h3>
+          <button
+            type="button"
+            className='text-blue-500'
+            onClick={handleChangeCurrentLanguage}
+          >
+            {t('changeLanguage')}
+          </button>
         </div>
       </div>
       <div className='h-screen w-full bg-gray-100'>

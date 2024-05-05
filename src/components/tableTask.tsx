@@ -1,6 +1,6 @@
 import * as React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { User, Task } from "../model";
+import {  Task } from "../model";
 import { listMenuLabel } from "../api/data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDotCircle, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { exportTasksToPDF } from "../utils/exportTaskToPDF";
 import { exportTasksToExcel, formatDate } from "../utils";
+import { useTranslation } from "react-i18next";
+
+
+
 
 const columns: GridColDef[] = [
     { field: "title", headerName: "", width: 200 },
@@ -48,6 +52,7 @@ const Labelcomponent = ({ params }: any) => {
     const labelM = listMenuLabel.filter((label) =>
         params.value.includes(label.name)
     );
+
     return (
         <div className="w-full h-full flex  flex-row items-center justify-center ">
             {labelM.map((label) => (
@@ -66,6 +71,8 @@ export default function TableTasks(tasks: Task[], onClick: Function) {
     const [filteredTasks, setFilteredTasks] = useState<Task[]>(tasks);
     const [filterBy, setFilter] = useState("none");
     const [search, setSearchField] = useState("");
+    const { t } = useTranslation();
+
 
     const handleFilter = () => {
         let filters = [];
@@ -124,7 +131,7 @@ export default function TableTasks(tasks: Task[], onClick: Function) {
                     onClick={e => exportTasksToPDF(filteredTasks)}
                     className="w-36   p-3 py-1 border border-blue-500 text-blue-500 rounded-xl hover:bg-blue-500 hover:text-white"
                 >
-                    Export to PDF
+                    {t("exportTo")} PDF
                 </button>
 
                 <button
@@ -132,7 +139,7 @@ export default function TableTasks(tasks: Task[], onClick: Function) {
                     onClick={e => exportTasksToExcel(filteredTasks)}
                     className=" w-36  p-3 py-1 border border-blue-500 text-blue-500 rounded-xl hover:bg-blue-500 hover:text-white"
                 >
-                    Export to Excel
+                    {t("exportTo")} Excel
                 </button>
             </div>
             <div className="w-full h-16 py-2  px-8 flex flex-row">
@@ -141,7 +148,7 @@ export default function TableTasks(tasks: Task[], onClick: Function) {
                     <div className="flex bg-blue-50 pl-4 w-64 items-center space-x-4 h-full rounded-full">
 
                         <FontAwesomeIcon icon={faMagnifyingGlass} className="h-4 w-4 opacity-30"></FontAwesomeIcon>
-                        <input type={"search"} name="search" placeholder='Search here' className={`bg-transparent h-full px-4 w-full border-none focus:outline-none`} required
+                        <input type={"search"} name="search" placeholder={t("searchHere")} className={`bg-transparent h-full px-4 w-full border-none focus:outline-none`} required
                             onChange={handleSearch} />
                     </div>
 
@@ -152,8 +159,8 @@ export default function TableTasks(tasks: Task[], onClick: Function) {
                             value={filterBy}
                             onChange={e => handleFilterByChange(e.target.value)}
                         >
-                            <option value={"none"}>None</option>
-                            <option value={"assigne"}>User </option>
+                            <option value={"none"}>{t("none")}</option>
+                            <option value={"assigne"}>{t("user")} </option>
                             <option value={"label"}>Label</option>
                         </select>
                     </div>
