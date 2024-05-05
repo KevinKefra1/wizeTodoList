@@ -6,7 +6,7 @@ import frJSON from './locale/fr.json'
 i18n.use(initReactI18next).init({
     resources: {
       en: { ...enJSON },
-      pt: { ...frJSON },
+      fr: { ...frJSON },
     },
-    lng: "en",
+    lng: "fr",
   });

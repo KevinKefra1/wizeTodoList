@@ -63,7 +63,7 @@ function App() {
             }}
 
             className={`relative mx-3 md:mx-0 min-w-8   md:px-4 py-1 md:py-2 cursor-pointer rounded-xl hover:font-bold  font-medium text-lg hover:text-blue-500 group   ${page !== 0 ? "text-white ease-out text-blue-500" : ""} `}
-          > Task </button>
+          >  {t('task')}</button>
           <button
             onClick={(e) => {
               handleChangePage(0)
