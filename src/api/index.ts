@@ -4,21 +4,9 @@ import { User, Task } from "../model";
 import { listAssignes, listTasks } from "./data";
 
 const api = new MockAdapter(axios);
-let users:User[] = [];//[...listAssignes];
+let users:User[] = [...listAssignes];
 let tasks = [...listTasks];
 
-userGenerator(100)
-function userGenerator(nbr:number){
-    for (let i = 0; i < nbr; i++) {
-        const user: User = {
-          id: i + 1, 
-          name: `user ${i + 1}`, 
-          email: `user${i + 1}@example.com`, 
-          phone: `6xxxxxxxx`, 
-        };
-        users.push(user);
-      }  
-}
 function updateTasks(newTask: Task) {
   const existingTaskIndex = tasks.findIndex((task) => task.id === newTask.id);
 

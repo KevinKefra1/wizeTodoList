@@ -25,4 +25,5 @@ export interface ModalUserProps {
     onAddUser: (user: User) => void;
     onDeleteUser: (task: User) => void;
     user?: User;
+    listAssignes: User[];
 }

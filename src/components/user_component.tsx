@@ -19,7 +19,7 @@ type UserComponentProps = {
 };
 
 const UserComponent: React.FC<UserComponentProps> = ({ isOpen, onClick }) => {
-    const { users,addUser, deleteUser } = useUsers();
+    const { users, addUser, deleteUser } = useUsers();
     const { t } = useTranslation();
 
     // const [listData, setListData] = useState<User[]>([...listAssignes]);
@@ -91,7 +91,7 @@ const UserComponent: React.FC<UserComponentProps> = ({ isOpen, onClick }) => {
                         isOpen={showModal}
                         onClose={handleCloseModal}
                         title={t("addNewUser")}
-                        children={<FormUserComponent onAddUser={onAddUser} onDeleteUser={handleDeleteUser} user={selectedUser} />}
+                        children={<FormUserComponent onAddUser={onAddUser} onDeleteUser={handleDeleteUser} user={selectedUser} listAssignes={users} />}
                     ></ModalComponent>
                 )}
 

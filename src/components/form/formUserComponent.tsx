@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { listAssignes } from '../../api/data';
 import { User, ModalUserProps, } from '../../model';
 
 
 
-export default function FormUserComponent({ onAddUser, onDeleteUser, user }: ModalUserProps) {
+export default function FormUserComponent({ onAddUser, onDeleteUser, user, listAssignes }: ModalUserProps) {
     const { t } = useTranslation();
 
     const [formData, setFormData] = useState({ email: user?.email ?? "", name: user?.name ?? "", phone: user?.phone ?? "" });
@@ -35,7 +34,8 @@ export default function FormUserComponent({ onAddUser, onDeleteUser, user }: Mod
 
 
     const searchUserByName = (name: string, id: number): boolean => {
-        const foundUser = listAssignes.find(user => user.name.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase());
+
+        const foundUser = listAssignes.find(user1 => user1.name.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase());
         if (foundUser !== undefined && foundUser?.id === id) {
             return false; //
         }
@@ -44,15 +44,15 @@ export default function FormUserComponent({ onAddUser, onDeleteUser, user }: Mod
     const handleAddUser = (event: any) => {
         event.preventDefault();
         searchUserByName(name, user?.id ?? -1)
-        console.log(name
-            .trim.length)
+        
         if (name.trim().length < 3) {
             setIsValidTitle(false);
-            
             setErrorMessage(t("invalidName"))
             return
         } else if (searchUserByName(name, user?.id ?? -1)) {
             setIsValidTitle(false);
+            setErrorMessage(t('nameIsUse'))
+            return
 
         }
         else {
@@ -64,6 +64,7 @@ export default function FormUserComponent({ onAddUser, onDeleteUser, user }: Mod
         if (!isValidEmailFormat(email)) {
             setValidEmail(false);
             setErrorMessage(t("invalidEmail"))
+            return
 
         } else {
             setValidEmail(true)
