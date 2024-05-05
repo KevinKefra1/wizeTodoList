@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Assignee, LoadTaskState, Task } from '../model';
+import { User, LoadTaskState, Task } from '../model';
 import axios from 'axios';
 
 export const useTasks = (): LoadTaskState => {
     const [tasks, setTasks] = useState<Task[]>([]);
-    const [users, setUsers] = useState<Assignee[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { listAssignes } from '../../api/data';
-import { Assignee, ModalUserProps, } from '../../model';
+import { User, ModalUserProps, } from '../../model';
 
 
 
@@ -63,7 +63,7 @@ export default function FormUserComponent({ onAddUser, onDeleteUser, user }: Mod
             return;
         }
 
-        const newUser: Assignee = {
+        const newUser: User = {
             id: user?.id ?? Math.floor(Math.random() * 10000000) + 1,
             name: formData.name,
             email: formData.email,

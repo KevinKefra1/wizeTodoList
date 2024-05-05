@@ -1,7 +1,7 @@
 import jsPDF from 'jspdf';
-import { Assignee } from '../model';
+import { User } from '../model';
 
-export  const exportUsersToPDF = (users: Assignee[]) => {
+export  const exportUsersToPDF = (users: User[]) => {
   const doc = new jsPDF();
 
   // Set font and font size

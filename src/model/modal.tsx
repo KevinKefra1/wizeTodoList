@@ -1,4 +1,4 @@
-import { Assignee, Task } from "./";
+import { User, Task } from "./";
 
 export interface ModalProps {
     isOpen: boolean;
@@ -15,14 +15,14 @@ export interface ModalTaskProps {
     onAddTask: (task: Task) => void;
     onDeleteTask: (task: Task) => void;
     task?: Task;
-    listAssignes:Assignee[];
+    listAssignes: User[];
 }
 
 
 
 export interface ModalUserProps {
 
-    onAddUser: (user: Assignee) => void;
-    onDeleteUser: (task: Assignee) => void;
-    user?: Assignee;
+    onAddUser: (user: User) => void;
+    onDeleteUser: (task: User) => void;
+    user?: User;
 }

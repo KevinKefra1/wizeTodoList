@@ -1,0 +1,16 @@
+{
+    "translation": {
+      "addTask": "Add Task",
+      "all":"All",
+      "priority":"Priority",
+      "today":"Todayi",
+      "Completed":"Completed",
+      "task":"Task",
+      "user":"User",
+      "exportTo":"Export to  ",
+      "searchHere":"Search here",
+      "none":"None",
+      "name":"Name",
+      "phone": "Phone"
+    }
+  }

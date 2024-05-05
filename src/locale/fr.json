@@ -1,0 +1,16 @@
+{
+    "translation": {
+      "addTask": "Ajouter une tache",
+      "all":"Tous",
+      "priority":"Prioritaire",
+      "today":"Aujourd'hui",
+      "Completed":"Terminer",
+      "task":"Tache",
+      "user":"Membre",
+      "exportTo":"Exporter au format ",
+      "searchHere":"Rechercher ici ",
+      "none":"Aucun",
+      "name":"Nom",
+      "phone": "Telephone"
+    }
+  }

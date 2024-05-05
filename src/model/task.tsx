@@ -1,9 +1,9 @@
-import { Assignee, Label, PriorityOfTask } from ".";
+import { User, Label, PriorityOfTask } from ".";
 
 export interface Task {
     id: number;
     title: string;
-    assignee: Assignee;
+    assignee: User;
     startDate: Date;
     endDate?: Date;
     priority: PriorityOfTask;
@@ -16,7 +16,7 @@ export interface Task {
 
 export interface LoadTaskState {
     tasks: Task[];
-    users: Assignee[];
+    users: User[];
     loading: boolean;
     error: string | null;
     addTask: (task: Task) => void;

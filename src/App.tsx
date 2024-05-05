@@ -8,11 +8,22 @@ import api from './api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import styles from './app.module.css'
+import { useTranslation } from 'react-i18next';
 
 
 api.onAny().passThrough();
 
 function App() {
+  const { t, i18n: {changeLanguage, language} } = useTranslation();
+  const [currentLanguage, setCurrentLanguage] = useState(language)
+  
+  const handleChangeCurrentLanguage = () => {
+    const newLanguage = currentLanguage === "en" ? "fr" : "en";
+    setCurrentLanguage(newLanguage);
+    changeLanguage(newLanguage);
+  }
+
+
   const [page, setPage] = useState(1)
   const handleChangePage = (e: number) => {
     setPage(e)
@@ -45,7 +56,7 @@ function App() {
             className={`w-6 h-6  ${open ? "" : "hidden"} sm:hidden`}
           ></FontAwesomeIcon>
         </div>
-        <div className='flex md:mr-48 md:gap-14'>
+        <div className='flex md:mr-48 md:gap-8 text-gray-600'>
           <button
             onClick={(e) => {
               handleChangePage(1)

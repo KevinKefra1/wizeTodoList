@@ -18,7 +18,7 @@ export  const exportTasksToPDF = (tasks: Task[]) => {
   doc.line(15, 25, 195, 25);
 
   doc.text('Title', 20, 30);
-  doc.text('Assignee', 60, 30);
+  doc.text('User', 60, 30);
   doc.text('Priority', 100, 30);
   doc.text('Labels', 140, 30);
   doc.text('Status', 180, 30);

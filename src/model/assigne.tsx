@@ -1,4 +1,4 @@
-export  interface Assignee {
+export interface User {
     id: number;
     name: string;
     email: string;
@@ -6,9 +6,9 @@ export  interface Assignee {
 }
 
 export interface UserState {
-    users:Assignee[];
+    users: User[];
     loading: boolean;
     error: string | null;
-    addUser: (user:Assignee) => void;
-    deleteUser: (user:Assignee) => void;
+    addUser: (user: User) => void;
+    deleteUser: (user: User) => void;
 }

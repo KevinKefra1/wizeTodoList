@@ -1,12 +1,12 @@
 import { Autocomplete, TextField } from '@mui/material';
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import { Label, ModalTaskProps, PriorityOfTask, Task } from '../../model';
 
 
 
 
-export default function FormTaskComponent({ onAddTask, onDeleteTask, task,listAssignes }: ModalTaskProps) {
-    
+export default function FormTaskComponent({ onAddTask, onDeleteTask, task, listAssignes }: ModalTaskProps) {
+
     const [formData, setFormData] = useState({ title: task?.title ?? "", description: task?.description ?? "", startDate: task?.startDate !== undefined ? new Date(task?.startDate ?? "") : new Date(), endDate: task?.endDate ?? undefined, labels: task?.labels ?? [Label.CSS], assignee: task?.assignee ?? listAssignes[0], priority: task?.priority ?? PriorityOfTask.HIGH, });
     const [isValidTitle, setIsValidTitle] = useState(true);
     const [confirmed, setIsConfirmed] = useState(task?.endDate !== undefined);
@@ -114,7 +114,7 @@ export default function FormTaskComponent({ onAddTask, onDeleteTask, task,listAs
                             <option value={PriorityOfTask.HIGH}>HIGH</option>
                         </select>
 
-                        
+
 
                         <Autocomplete
                             value={assignee.name ?? ''}
@@ -126,7 +126,7 @@ export default function FormTaskComponent({ onAddTask, onDeleteTask, task,listAs
                             options={listAssignes.map(assignee => assignee.name)}
                             sx={{ flex: 1 }}
 
-                            renderInput={(params) => <TextField {...params} label="Assignee" />}
+                            renderInput={(params) => <TextField {...params} label="User" />}
                         />
 
                         <select multiple value={selectedLabels} onChange={handleChange} className=' p-4 bg-white border  text-gray-900 text-sm rounded-md focus:outline-none focus:ring-blue-500 focus:border-gray-900 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-14'>

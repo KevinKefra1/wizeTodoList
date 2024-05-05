@@ -1,6 +1,6 @@
 import * as React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Assignee, Task } from "../model";
+import { User, Task } from "../model";
 import { listMenuLabel } from "../api/data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDotCircle, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -27,8 +27,8 @@ const columns: GridColDef[] = [
 
 
 
-export default function TableAssignee(users: Assignee[], onClick: Function) {
-    const [filteredUsers, setFilteredUsers] = useState<Assignee[]>(users);
+export default function TableAssignee(users: User[], onClick: Function) {
+    const [filteredUsers, setFilteredUsers] = useState<User[]>(users);
     const [filterBy, setFilter] = useState("none");
     const [search, setSearchField] = useState("");
 
@@ -142,7 +142,7 @@ export default function TableAssignee(users: Assignee[], onClick: Function) {
                 columns={columns}
                 initialState={{
                     pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
+                        paginationModel: { page: 0, pageSize: 10 },
                     },
                 }}
                 pageSizeOptions={[5, 10]}

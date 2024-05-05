@@ -1,6 +1,6 @@
 import * as React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Assignee, Task } from "../model";
+import { User, Task } from "../model";
 import { listMenuLabel } from "../api/data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDotCircle, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -153,7 +153,7 @@ export default function TableTasks(tasks: Task[], onClick: Function) {
                             onChange={e => handleFilterByChange(e.target.value)}
                         >
                             <option value={"none"}>None</option>
-                            <option value={"assigne"}>Assignee </option>
+                            <option value={"assigne"}>User </option>
                             <option value={"label"}>Label</option>
                         </select>
                     </div>
@@ -165,7 +165,7 @@ export default function TableTasks(tasks: Task[], onClick: Function) {
                 columns={columns}
                 initialState={{
                     pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
+                        paginationModel: { page: 0, pageSize: 10 },
                     },
                 }}
                 pageSizeOptions={[5, 10]}

@@ -1,4 +1,4 @@
-import { Assignee, Label, LabelMenu, Menu, PriorityOfTask, Task } from "../model";
+import { User, Label, LabelMenu, Menu, PriorityOfTask, Task } from "../model";
 import {
     faCalendarMinus,
     faClock,
@@ -10,7 +10,7 @@ import {
 
 
 
-export const listAssignes: Assignee[] = [
+export const listAssignes: User[] = [
     { id: 1, name: "kevin kefra", email: "kefra@example.com", phone: "+23765998555x" },
     { id: 2, name: " kefra", email: "kefra2@example.com", phone: "+237655444444" },
     { id: 3, name: "kevin_kefra", email: "kefra3@example.com", phone: "+237666555440" }
@@ -19,7 +19,7 @@ export const listAssignes: Assignee[] = [
 export const listTasks: Task[] = [{
     id: 1,
     title: "Tâche 1",
-    assignee: listAssignes[3],
+    assignee: listAssignes[2],
     startDate: new Date(2024, 4, 1),
     endDate: new Date(2024, 4, 30),
     priority: PriorityOfTask.MEDIUM,

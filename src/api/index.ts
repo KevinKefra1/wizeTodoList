@@ -1,12 +1,24 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { Assignee, Task } from "../model";
+import { User, Task } from "../model";
 import { listAssignes, listTasks } from "./data";
 
 const api = new MockAdapter(axios);
-let users = [...listAssignes];
+let users:User[] = [];//[...listAssignes];
 let tasks = [...listTasks];
 
+userGenerator(100)
+function userGenerator(nbr:number){
+    for (let i = 0; i < nbr; i++) {
+        const user: User = {
+          id: i + 1, 
+          name: `user ${i + 1}`, 
+          email: `user${i + 1}@example.com`, 
+          phone: `6xxxxxxxx`, 
+        };
+        users.push(user);
+      }  
+}
 function updateTasks(newTask: Task) {
   const existingTaskIndex = tasks.findIndex((task) => task.id === newTask.id);
 
@@ -19,7 +31,7 @@ function updateTasks(newTask: Task) {
   }
 }
 
-function updateUsers(newUser: Assignee) {
+function updateUsers(newUser: User) {
   const existingTaskIndex = users.findIndex(
     (user) => user.name === newUser.name
   );
@@ -66,7 +78,7 @@ api.onPost("/tasks").reply((config: any) => {
 });
 
 api.onPost("/users").reply((config: any) => {
-  const newUser: Assignee = JSON.parse(config.data);
+  const newUser: User = JSON.parse(config.data);
   updateUsers(newUser);
   return [200, users];
 });

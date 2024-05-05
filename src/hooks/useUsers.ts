@@ -1,9 +1,9 @@
-import { Assignee, UserState } from './../model';
+import { User, UserState } from './../model';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const useUsers= (): UserState => {
-    const [users, setUsers] = useState<Assignee[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -26,7 +26,7 @@ export const useUsers= (): UserState => {
     }, []);
 
 
-    const addUser = async (newUser: Assignee) => {
+    const addUser = async (newUser: User) => {
         setLoading(true);
         try {
             const response = await axios.post('/users', newUser);
@@ -38,7 +38,7 @@ export const useUsers= (): UserState => {
             setLoading(false);
         }
     };
-    const deleteUser = async (oldUser: Assignee) => {
+    const deleteUser = async (oldUser: User) => {
         setLoading(true);
         try {
             const response=    await axios.delete(`/users/${oldUser.id}` );

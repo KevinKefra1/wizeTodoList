@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { listAssignes } from "../api/data";
 import { useState } from "react";
-import { Assignee } from "../model";
+import { User } from "../model";
 import ModalComponent from "./modalComponent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -21,12 +21,12 @@ type UserComponentProps = {
 const UserComponent: React.FC<UserComponentProps> = ({ isOpen, onClick }) => {
     const { users, loading, error, addUser, deleteUser } = useUsers();
 
-    // const [listData, setListData] = useState<Assignee[]>([...listAssignes]);
-    const [filterUsers, setFilterUser] = useState<Assignee[]>();
+    // const [listData, setListData] = useState<User[]>([...listAssignes]);
+    const [filterUsers, setFilterUser] = useState<User[]>();
 
     const [showModal, setShowModal] = useState(false);
     const [isSearchOrFilter, setSearchOrFilter] = useState(false);
-    const [selectedUser, setSelectedUser] = useState<Assignee>();
+    const [selectedUser, setSelectedUser] = useState<User>();
 
     const handleOpenModal = () => {
         setShowModal(true);
@@ -37,7 +37,7 @@ const UserComponent: React.FC<UserComponentProps> = ({ isOpen, onClick }) => {
         setSelectedUser(undefined);
     };
 
-    const onAddUser = (newUser: Assignee) => {
+    const onAddUser = (newUser: User) => {
 
         setSelectedUser(undefined);
         addUser(newUser)
@@ -48,14 +48,14 @@ const UserComponent: React.FC<UserComponentProps> = ({ isOpen, onClick }) => {
 
 
 
-    const openUser = (user: Assignee) => {
+    const openUser = (user: User) => {
         handleCloseModal();
         setSelectedUser(user);
         handleOpenModal();
     };
 
 
-    const handleDeleteUser = (oldUser: Assignee) => {
+    const handleDeleteUser = (oldUser: User) => {
         // setListData((prevTasks) => prevTasks.filter((task) => task.name !== oldUser.name));
         setSelectedUser(undefined)
         deleteUser(oldUser)
